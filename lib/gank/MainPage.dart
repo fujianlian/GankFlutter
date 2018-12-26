@@ -44,7 +44,7 @@ class MainPageState extends State<MainPageWidget> {
           style: new TextStyle(color: Colors.blue));
     } else {
       return new Text(appBarTitles[curIndex],
-          style: new TextStyle(color: const Color(0xff888888)));
+          style: new TextStyle(color: const Color(0xdd888888)));
     }
   }
 
@@ -71,9 +71,6 @@ class MainPageState extends State<MainPageWidget> {
     initData();
     // TODO: implement build
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("主页"),
-      ),
       body: _bodys[_tabIndex],
       bottomNavigationBar: new BottomNavigationBar(
         items: <BottomNavigationBarItem>[
