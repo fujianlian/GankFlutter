@@ -8,7 +8,6 @@ import 'WebPage.dart';
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return new HomeState();
   }
 }
@@ -27,13 +26,9 @@ class HomeState extends State<HomePage> {
         .get("http://gank.io/api/data/Android/15/1")
         .then((http.Response response) {
       var convertDataToJson = GankInfo.fromJson(json.decode(response.body));
-      print(convertDataToJson);
-
       setState(() {
         data = convertDataToJson.results;
       });
-
-      print(data);
     });
   }
 
@@ -44,6 +39,8 @@ class HomeState extends State<HomePage> {
         title: const Text('首页'),
         centerTitle: true,
       ),
+
+
       body: new ListView(children: data != null ? _getItem() : _loading()),
     );
   }
@@ -72,7 +69,7 @@ class HomeState extends State<HomePage> {
           onTap: () {
             //导航到新路由
             Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new WebPage(url: item.url);
+              return new WebPage(url: item.url,title: item.desc);
             }));
           },
           child: new Card(
@@ -97,13 +94,13 @@ class HomeState extends State<HomePage> {
               children: <Widget>[
                 new Column(
                   children: <Widget>[
-                    new Text("${item.desc}".trim(),
+                    new Text("${item.desc}",
                         maxLines: 3,
                         style: new TextStyle(
                           color: Colors.black,
                           fontSize: 18.0,
                         ),
-                        textAlign: TextAlign.left),
+                        textAlign: TextAlign.start),
                     new Row(children: <Widget>[
                       new Text(
                         "${item.who}",
