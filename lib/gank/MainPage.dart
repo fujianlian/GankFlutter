@@ -52,6 +52,7 @@ class MainPageState extends State<MainPageWidget> {
    * 存储的三个页面，和Fragment一样
    */
   var _bodys;
+  var _currentPageIndex = 0;
 
   void initData() {
     /*
@@ -63,7 +64,6 @@ class MainPageState extends State<MainPageWidget> {
       [Icon(Icons.person_outline), Icon(Icons.person)],
     ];
 
-    _bodys = [new HomePage(), new SortPage(), new MyPage()];
   }
 
   @override
@@ -71,7 +71,15 @@ class MainPageState extends State<MainPageWidget> {
     initData();
     // TODO: implement build
     return Scaffold(
-      body: _bodys[_tabIndex],
+      body: _bodys = IndexedStack(
+        children: <Widget>[
+          HomePage(),
+          SortPage(),
+          MyPage(),
+        ],
+        index: _tabIndex,
+      ),
+
       bottomNavigationBar: new BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(
