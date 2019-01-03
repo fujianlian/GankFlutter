@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-class _Page {
-  const _Page({this.icon, this.text});
-
-  final IconData icon;
-  final String text;
-}
+import 'ArticleListPage.dart';
+import 'FuliPage.dart';
 
 const List<String> _allPages = <String>[
   '福利',
@@ -76,21 +72,8 @@ class SortPageState extends State<SortPage>
       body: TabBarView(
           controller: _controller,
           children: _allPages.map<Widget>((String page) {
-            return SafeArea(
-              top: false,
-              bottom: false,
-              child: Container(
-                key: ObjectKey(page),
-                padding: const EdgeInsets.all(12.0),
-                child: Card(
-                  child: Center(
-                    child: Text(
-                      page
-                    ),
-                  ),
-                ),
-              ),
-            );
+            if (page == "福利") return new FuliPage();
+            return new ArticleListPage(type: page);
           }).toList()),
     );
   }

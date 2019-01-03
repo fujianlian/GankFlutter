@@ -48,12 +48,6 @@ class MainPageState extends State<MainPageWidget> {
     }
   }
 
-  /*
-   * 存储的三个页面，和Fragment一样
-   */
-  var _bodys;
-  var _currentPageIndex = 0;
-
   void initData() {
     /*
       bottom的按压图片
@@ -71,7 +65,7 @@ class MainPageState extends State<MainPageWidget> {
     initData();
     // TODO: implement build
     return Scaffold(
-      body: _bodys = IndexedStack(
+      body: IndexedStack(
         children: <Widget>[
           HomePage(),
           SortPage(),
