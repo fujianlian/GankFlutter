@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'ArticleListPage.dart';
-import 'FuliPage.dart';
 
 const List<String> _allPages = <String>[
-  '福利',
+  '全部',
   'Android',
   'iOS',
   '前端',
@@ -72,7 +71,7 @@ class SortPageState extends State<SortPage>
       body: TabBarView(
           controller: _controller,
           children: _allPages.map<Widget>((String page) {
-            if (page == "福利") return new FuliPage();
+            if (page == '全部') return new ArticleListPage(type: "all");
             return new ArticleListPage(type: page);
           }).toList()),
     );

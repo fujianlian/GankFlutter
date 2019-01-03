@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'HomePage.dart';
 import 'SortPage.dart';
 import 'MyPage.dart';
+import 'FuliPage.dart';
 
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: new MainPageWidget());
+        debugShowCheckedModeBanner: false, home: new MainPageWidget());
   }
 }
 
@@ -23,16 +23,13 @@ class MainPageWidget extends StatefulWidget {
 class MainPageState extends State<MainPageWidget> {
   int _tabIndex = 0;
   var tabImages;
-  var appBarTitles = ['首页', '分类', '我的'];
+  var appBarTitles = ['最新', '分类', '妹纸', '我的'];
 
   /*
    * 根据索引获得对应的normal或是press的icon
    */
   Icon getTabIcon(int curIndex) {
-    if (curIndex == _tabIndex) {
-      return tabImages[curIndex][1];
-    }
-    return tabImages[curIndex][0];
+    return tabImages[curIndex];
   }
 
   /*
@@ -53,11 +50,11 @@ class MainPageState extends State<MainPageWidget> {
       bottom的按压图片
      */
     tabImages = [
-      [Icon(Icons.home), Icon(Icons.home)],
-      [Icon(Icons.folder_open), Icon(Icons.folder)],
-      [Icon(Icons.person_outline), Icon(Icons.person)],
+      Icon(Icons.home),
+      Icon(Icons.tune),
+      Icon(Icons.spa),
+      Icon(Icons.person),
     ];
-
   }
 
   @override
@@ -69,11 +66,11 @@ class MainPageState extends State<MainPageWidget> {
         children: <Widget>[
           HomePage(),
           SortPage(),
+          FuliPage(),
           MyPage(),
         ],
         index: _tabIndex,
       ),
-
       bottomNavigationBar: new BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(
@@ -82,6 +79,8 @@ class MainPageState extends State<MainPageWidget> {
               icon: getTabIcon(1), title: getTabTitle(1)),
           new BottomNavigationBarItem(
               icon: getTabIcon(2), title: getTabTitle(2)),
+          new BottomNavigationBarItem(
+              icon: getTabIcon(3), title: getTabTitle(3)),
         ],
         //设置显示的模式
         type: BottomNavigationBarType.fixed,

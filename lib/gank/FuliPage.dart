@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +18,7 @@ class FuliPage extends StatefulWidget {
 class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   List<Results> _data = List();
   var _currentIndex = 1;
+  var _crossAxisCount = 2;
 
   /// 是否正加载万所有数据
   var _loadFinish = false;
@@ -57,6 +59,23 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('妹纸'),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.transform),
+            onPressed: () {
+              setState(() {
+                if (_crossAxisCount == 2)
+                  _crossAxisCount = 1;
+                else
+                  _crossAxisCount = 2;
+              });
+            },
+          )
+        ],
+      ),
       body: _data.isEmpty
           ? new Container(
               height: window.physicalSize.height,
@@ -75,14 +94,14 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
             )
           : new Container(
               child: GridView.builder(
-              padding: EdgeInsets.all(9.0),
+              padding: EdgeInsets.all(5.0),
               itemBuilder: _renderRow,
               itemCount: _loadFinish ? _data.length : _data.length + 1,
               controller: _scrollController,
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 9.0,
-                  crossAxisSpacing: 9.0),
+                  crossAxisCount: _crossAxisCount,
+                  mainAxisSpacing: 5.0,
+                  crossAxisSpacing: 5.0),
             )),
     );
   }
@@ -100,10 +119,13 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
           onTap: () {
             showPhoto(context, item);
           },
-          child: new FadeInImage.assetNetwork(
-            placeholder: 'images/fuli.png',
+          child: new CachedNetworkImage(
             fit: BoxFit.cover,
-            image: item.url,
+            placeholder: Image(
+              image: AssetImage("images/fuli.png"),
+              fit: BoxFit.cover,
+            ),
+            imageUrl: item.url,
           )),
     );
   }

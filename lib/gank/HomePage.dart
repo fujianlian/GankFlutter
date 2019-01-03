@@ -36,7 +36,7 @@ class HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('首页'),
+        title: const Text('最新'),
         centerTitle: true,
       ),
 

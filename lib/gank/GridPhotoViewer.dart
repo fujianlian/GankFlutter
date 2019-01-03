@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 
@@ -89,10 +90,9 @@ class _GridPhotoViewerState extends State<GridPhotoViewer>
           transform: Matrix4.identity()
             ..translate(_offset.dx, _offset.dy)
             ..scale(_scale),
-          child: new FadeInImage.assetNetwork(
-            placeholder: 'images/fuli.png',
+          child: new CachedNetworkImage(
             fit: BoxFit.fitWidth,
-            image: widget.photo.url,
+            imageUrl: widget.photo.url,
           ),
         ),
       ),

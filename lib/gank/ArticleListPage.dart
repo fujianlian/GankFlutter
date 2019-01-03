@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'WebPage.dart';
 
@@ -65,25 +66,25 @@ class ArticleListState extends State<ArticleListPage>
     return Scaffold(
       body: _data.isEmpty
           ? new Container(
-              height: window.physicalSize.height,
-              child: new Center(
-                  child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                  new Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: new Text("正在加载")),
-                ],
-              )),
-            )
+        height: window.physicalSize.height,
+        child: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                ),
+                new Container(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: new Text("正在加载")),
+              ],
+            )),
+      )
           : ListView.builder(
-              itemBuilder: _renderRow,
-              itemCount: _loadFinish ? _data.length : _data.length + 1,
-              controller: _scrollController,
-            ),
+        itemBuilder: _renderRow,
+        itemCount: _loadFinish ? _data.length : _data.length + 1,
+        controller: _scrollController,
+      ),
     );
   }
 
@@ -129,14 +130,19 @@ class ArticleListState extends State<ArticleListPage>
             item.images == null || item.images.isEmpty
                 ? new Text("")
                 : new Container(
-                    margin: EdgeInsets.only(left: 8.0),
-                    child: new FadeInImage.assetNetwork(
-                      placeholder: 'images/holder.png',
-                      fit: BoxFit.fitWidth,
-                      image: item.images[0],
-                      width: 90,
-                      height: 90,
-                    )),
+                margin: EdgeInsets.only(left: 8.0),
+                child: new CachedNetworkImage(
+                  placeholder: Image(
+                    image: AssetImage("images/holder.png"),
+                    fit: BoxFit.cover,
+                    width: 90,
+                    height: 90,
+                  ),
+                  fit: BoxFit.fitWidth,
+                  imageUrl: item.images[0],
+                  width: 90,
+                  height: 90,
+                )),
           ],
         ),
         new Container(
@@ -147,7 +153,7 @@ class ArticleListState extends State<ArticleListPage>
                 child: new Text(
                   item.who,
                   style:
-                      new TextStyle(color: Color(0xFF888888), fontSize: 12.0),
+                  new TextStyle(color: Color(0xFF888888), fontSize: 12.0),
                 ),
               ),
               new Text(
