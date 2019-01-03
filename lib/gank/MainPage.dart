@@ -51,7 +51,7 @@ class MainPageState extends State<MainPageWidget> {
      */
     tabImages = [
       Icon(Icons.home),
-      Icon(Icons.tune),
+      Icon(Icons.widgets),
       Icon(Icons.spa),
       Icon(Icons.person),
     ];

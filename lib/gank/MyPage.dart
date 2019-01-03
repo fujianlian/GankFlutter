@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new _MyPageState();
+  }
+}
+
+class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: new Scaffold(
-        body: new Center(child:new Text("我的")),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('我的'),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.transform),
+            onPressed: () {
+              setState(() {});
+            },
+          )
+        ],
       ),
     );
   }
