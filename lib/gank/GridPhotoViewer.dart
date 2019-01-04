@@ -5,7 +5,7 @@ import 'package:flutter_gank/models/GankInfo.dart';
 class GridPhotoViewer extends StatefulWidget {
   const GridPhotoViewer({Key key, this.photo}) : super(key: key);
 
-  final Results photo;
+  final GankInfo photo;
 
   @override
   _GridPhotoViewerState createState() => _GridPhotoViewerState();

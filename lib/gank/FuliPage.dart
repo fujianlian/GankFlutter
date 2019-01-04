@@ -3,7 +3,9 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
+import 'package:flutter_gank/models/PageList.dart';
 import 'package:http/http.dart' as http;
 
 import 'GridPhotoViewer.dart';
@@ -16,7 +18,7 @@ class FuliPage extends StatefulWidget {
 }
 
 class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
-  List<Results> _data = List();
+  List<GankInfo> _data = List();
   var _currentIndex = 1;
   var _crossAxisCount = 2;
 
@@ -45,7 +47,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     var irl = "http://gank.io/api/data/福利/20/$_currentIndex";
     await http.get(irl).then((http.Response response) {
       isLoading = false;
-      var convertDataToJson = GankInfo.fromJson(json.decode(response.body));
+      var convertDataToJson = PageList.fromJson(json.decode(response.body));
       setState(() {
         if (convertDataToJson.results.isEmpty) {
           _loadFinish = true;
@@ -77,22 +79,8 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
         ],
       ),
       body: _data.isEmpty
-          ? new Container(
-              height: window.physicalSize.height,
-              child: new Center(
-                  child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                  new Container(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: new Text("正在加载")),
-                ],
-              )),
-            )
-          : new Container(
+          ? LoadingWidget()
+          : Container(
               child: GridView.builder(
               padding: EdgeInsets.all(5.0),
               itemBuilder: _renderRow,
@@ -113,7 +101,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     return _getMoreWidget();
   }
 
-  Widget _getItem(Results item) {
+  Widget _getItem(GankInfo item) {
     return new Container(
       child: new GestureDetector(
           onTap: () {
@@ -159,7 +147,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  void showPhoto(BuildContext context, Results photo) {
+  void showPhoto(BuildContext context, GankInfo photo) {
     Navigator.push(context,
         MaterialPageRoute<void>(builder: (BuildContext context) {
       return Scaffold(

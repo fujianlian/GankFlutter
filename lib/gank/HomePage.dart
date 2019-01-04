@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/gank/CommonComponent.dart';
+import 'package:flutter_gank/gank/GridPhotoViewer.dart';
+import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:http/http.dart' as http;
-import 'WebPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,114 +16,101 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State<HomePage> {
+  bool isLoading;
+  DailyInfo _DailyInfo;
+  BuildContext contexts;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _pullNet();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget titleSection = Container(
-      padding: const EdgeInsets.all(32.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    'Oeschinen Lake Campground',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text(
-                  'Kandersteg, Switzerland',
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text('41'),
-        ],
-      ),
-    );
-
-    Column buildButtonColumn(IconData icon, String label) {
-      Color color = Theme.of(context).primaryColor;
-
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color),
-          Container(
-            margin: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
-    Widget buttonSection = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildButtonColumn(Icons.call, 'CALL'),
-          buildButtonColumn(Icons.near_me, 'ROUTE'),
-          buildButtonColumn(Icons.share, 'SHARE'),
-        ],
-      ),
-    );
-
-    Widget textSection = Container(
-      padding: const EdgeInsets.all(32.0),
-      child: Text(
-        '''
-Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.
-        ''',
-        softWrap: true,
-      ),
-    );
-
+    contexts = context;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text('最新'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.event),
-              onPressed: () {
-
-              },
-            )
-          ],
         ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'images/holder.png',
-              height: 180.0,
-              fit: BoxFit.cover,
-            ),
-            titleSection,
-            buttonSection,
-            textSection,
-          ],
-        ),
+        body: _DailyInfo == null
+            ? LoadingWidget()
+            : ListView(children: _showAllList()),
       ),
     );
+  }
+
+  List<Widget> _showAllList() {
+    var l = List<Widget>();
+    var top = new Container(
+        margin: EdgeInsets.only(bottom: 5.0),
+        child: new GestureDetector(
+            onTap: () {
+              showPhoto(contexts, _DailyInfo.results.fuli[0]);
+            },
+            child: new CachedNetworkImage(
+              placeholder: Image(
+                image: AssetImage("images/fuli.png"),
+                fit: BoxFit.cover,
+                height: 190.0,
+              ),
+              fit: BoxFit.cover,
+              imageUrl: _DailyInfo.results.fuli[0].url,
+              height: 190.0,
+            )));
+    l.add(top);
+    l.addAll(_showList("Android", _DailyInfo.results.android));
+    l.addAll(_showList("iOS", _DailyInfo.results.iOS));
+    l.addAll(_showList("休息视频", _DailyInfo.results.video));
+    l.addAll(_showList("拓展资源", _DailyInfo.results.resource));
+    return l;
+  }
+
+  List<Widget> _showList(String title, List<GankInfo> list) {
+    var l = List<Widget>();
+    var top = new Container(
+        margin: EdgeInsets.all(10.0),
+        child: new Row(
+          children: <Widget>[
+            Text(
+              title,
+              style: new TextStyle(fontSize: 20.0, color: Colors.black),
+            ),
+          ],
+        ));
+    l.add(top);
+    list.forEach((f) => l.add(ShowListWidget(info: f, contexts: contexts)));
+    return l;
+  }
+
+  void showPhoto(BuildContext context, GankInfo photo) {
+    Navigator.push(context,
+        MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(photo.desc),
+          centerTitle: true,
+        ),
+        body: SizedBox.expand(
+          child: Hero(
+            tag: photo.id,
+            child: GridPhotoViewer(photo: photo),
+          ),
+        ),
+      );
+    }));
+  }
+
+  void _pullNet() async {
+    var url = "http://gank.io/api/today";
+    await http.get(url).then((http.Response response) {
+      isLoading = false;
+      setState(() {
+        _DailyInfo = DailyInfo.fromJson(json.decode(response.body));
+      });
+    });
   }
 }
