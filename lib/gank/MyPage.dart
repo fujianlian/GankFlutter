@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gank/gank/MarkDownPage.dart';
+import 'package:flutter_gank/gank/AboutPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyPage extends StatefulWidget {
@@ -96,7 +96,7 @@ class _MyPageState extends State<MyPage> {
             onTap: () {
               Navigator.push(_context,
                   new MaterialPageRoute(builder: (context) {
-                return new MarkDownPage(title: "几点");
+                return new AboutPage();
               }));
             },
           ),
