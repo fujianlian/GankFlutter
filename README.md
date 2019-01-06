@@ -10,7 +10,7 @@
 | :--: | :--: | :--: |
 | 最新 | 分类 | 妹纸1 |
 
-![1](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_two.png) | ![2](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_two.png) | ![3](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/my.png) |
+![1](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_two.png) | ![2](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_three.png) | ![3](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/my.png) |
 | :--: | :--: | :--: |
 | 妹纸2 | 妹纸3 | 我的 |
 
@@ -19,7 +19,7 @@
 
 ## 版本更新日志
 
-### V1.0.0[2019-01-05]
+### V1.0.0[2019-01-06]
 
 1、项目架构搭建
 
