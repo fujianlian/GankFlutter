@@ -4,26 +4,40 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/gank/GridPhotoViewer.dart';
-import 'package:flutter_gank/gank/HistoryListPage.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:http/http.dart' as http;
 
-class HomePage extends StatefulWidget {
+class DailyPage extends StatefulWidget {
+  DailyPage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
   State<StatefulWidget> createState() {
-    return new HomeState();
+    return new DailyPageState();
   }
 }
 
-class HomeState extends State<HomePage> {
+class DailyPageState extends State<DailyPage> {
   bool isLoading;
   DailyInfo _dailyInfo;
   BuildContext contexts;
 
+  IconData _backIcon() {
+    switch (Theme.of(contexts).platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+        return Icons.arrow_back;
+      case TargetPlatform.iOS:
+        return Icons.arrow_back_ios;
+    }
+    assert(false);
+    return null;
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _pullNet();
   }
@@ -35,20 +49,17 @@ class HomeState extends State<HomePage> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('最新'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.reorder),
-              onPressed: () {
-                setState(() {
-                  Navigator.push(contexts == null ? context : contexts,
-                      new MaterialPageRoute(builder: (context) {
-                    return new HistoryListPage();
-                  }));
-                });
-              },
-            )
-          ],
+          title: Text(widget.title),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(_backIcon()),
+                onPressed: () {
+                  Navigator.pop(contexts);
+                },
+              );
+            },
+          ),
         ),
         body: _dailyInfo == null
             ? LoadingWidget()
@@ -126,8 +137,8 @@ class HomeState extends State<HomePage> {
   }
 
   void _pullNet() async {
-    var url = "http://gank.io/api/today";
-    await http.get(url).then((http.Response response) {
+    var url = "http://gank.io/api/day/${widget.title.replaceAll("-", "/")}";
+    await http.Client().get(url).then((http.Response response) {
       isLoading = false;
       setState(() {
         _dailyInfo = DailyInfo.fromJson(json.decode(response.body));

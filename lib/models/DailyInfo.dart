@@ -2,6 +2,7 @@ import 'dart:convert' show json;
 
 import 'package:flutter_gank/models/GankInfo.dart';
 
+/// 某个日期网站数据
 class DailyInfo {
   bool error;
   List<String> category;

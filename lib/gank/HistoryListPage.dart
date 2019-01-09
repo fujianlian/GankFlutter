@@ -1,28 +1,24 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:flutter_gank/models/PageList.dart';
+import 'package:flutter_gank/models/HistoryList.dart';
 import 'package:http/http.dart' as http;
 
 import 'CommonComponent.dart';
 
-/// 各个分类列表显示
-class ArticleListPage extends StatefulWidget {
-  ArticleListPage({Key key, this.type}) : super(key: key);
-
-  final String type;
-
+/// 干货历史
+class HistoryListPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new ArticleListState();
+    return new HistoryListPageState();
   }
 }
 
-class ArticleListState extends State<ArticleListPage>
+class HistoryListPageState extends State<HistoryListPage>
     with AutomaticKeepAliveClientMixin {
-  List<GankInfo> _data = List();
-  var _currentIndex = 1;
+  List<HistoryInfo> _data = List();
+  var _count = 20;
+  var _pageIndex = 1;
 
   /// 是否已加载完所有数据
   var _loadFinish = false;
@@ -32,6 +28,18 @@ class ArticleListState extends State<ArticleListPage>
 
   /// listView的控制器
   ScrollController _scrollController = ScrollController();
+
+  IconData _backIcon(BuildContext context) {
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+        return Icons.arrow_back;
+      case TargetPlatform.iOS:
+        return Icons.arrow_back_ios;
+    }
+    assert(false);
+    return null;
+  }
 
   @override
   void initState() {
@@ -46,10 +54,10 @@ class ArticleListState extends State<ArticleListPage>
   }
 
   void _pullNet() async {
-    var url = "http://gank.io/api/data/${widget.type}/15/$_currentIndex";
+    var url = "http://gank.io/api/history/content/$_count/$_pageIndex";
     await http.get(url).then((http.Response response) {
       isLoading = false;
-      var convertDataToJson = PageList.fromJson(json.decode(response.body));
+      var convertDataToJson = HistoryList.fromJson(json.decode(response.body));
       setState(() {
         if (convertDataToJson.results.isEmpty) {
           _loadFinish = true;
@@ -62,20 +70,37 @@ class ArticleListState extends State<ArticleListPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _data.isEmpty
-          ? LoadingWidget()
-          : ListView.builder(
-              itemBuilder: _renderRow,
-              itemCount: _loadFinish ? _data.length : _data.length + 1,
-              controller: _scrollController,
-            ),
+    var con = context;
+    return new MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('干货历史'),
+          centerTitle: true,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(_backIcon(context)),
+                onPressed: () {
+                  Navigator.pop(con);
+                },
+              );
+            },
+          ),
+        ),
+        body: _data.isEmpty
+            ? LoadingWidget()
+            : ListView.builder(
+                itemBuilder: _renderRow,
+                itemCount: _loadFinish ? _data.length : _data.length + 1,
+                controller: _scrollController,
+              ),
+      ),
     );
   }
 
   Widget _renderRow(BuildContext context, int index) {
     if (index < _data.length) {
-      return ShowListWidget(info: _data[index]);
+      return HistoryListWidget(info: _data[index]);
     }
     return _getMoreWidget();
   }
@@ -104,7 +129,7 @@ class ArticleListState extends State<ArticleListPage>
       setState(() {
         isLoading = true;
       });
-      _currentIndex++;
+      _pageIndex++;
       _pullNet();
     }
   }
