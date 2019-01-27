@@ -31,29 +31,27 @@ class HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     contexts = context;
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('最新'),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.reorder),
-              onPressed: () {
-                setState(() {
-                  Navigator.push(contexts == null ? context : contexts,
-                      new MaterialPageRoute(builder: (context) {
-                    return new HistoryListPage();
-                  }));
-                });
-              },
-            )
-          ],
-        ),
-        body: _dailyInfo == null
-            ? LoadingWidget()
-            : ListView(children: _showAllList()),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('最新'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.reorder),
+            onPressed: () {
+              setState(() {
+                Navigator.push(contexts == null ? context : contexts,
+                    new MaterialPageRoute(builder: (context) {
+                  return new HistoryListPage();
+                }));
+              });
+            },
+          )
+        ],
       ),
+      body: _dailyInfo == null
+          ? LoadingWidget()
+          : ListView(children: _showAllList()),
     );
   }
 

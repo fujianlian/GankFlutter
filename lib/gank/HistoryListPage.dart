@@ -29,18 +29,6 @@ class HistoryListPageState extends State<HistoryListPage>
   /// listView的控制器
   ScrollController _scrollController = ScrollController();
 
-  IconData _backIcon(BuildContext context) {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-        return Icons.arrow_back;
-      case TargetPlatform.iOS:
-        return Icons.arrow_back_ios;
-    }
-    assert(false);
-    return null;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -70,31 +58,19 @@ class HistoryListPageState extends State<HistoryListPage>
 
   @override
   Widget build(BuildContext context) {
-    var con = context;
-    return new MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('干货历史'),
-          centerTitle: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(_backIcon(context)),
-                onPressed: () {
-                  Navigator.pop(con);
-                },
-              );
-            },
-          ),
-        ),
-        body: _data.isEmpty
-            ? LoadingWidget()
-            : ListView.builder(
-                itemBuilder: _renderRow,
-                itemCount: _loadFinish ? _data.length : _data.length + 1,
-                controller: _scrollController,
-              ),
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text('干货历史'),
+        centerTitle: true,
       ),
+      body: _data.isEmpty
+          ? LoadingWidget()
+          : ListView.builder(
+              padding: EdgeInsets.all(4.0),
+              itemBuilder: _renderRow,
+              itemCount: _loadFinish ? _data.length : _data.length + 1,
+              controller: _scrollController,
+            ),
     );
   }
 

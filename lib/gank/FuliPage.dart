@@ -4,11 +4,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
+import 'package:flutter_gank/gank/GridPhotoViewer.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/models/PageList.dart';
 import 'package:http/http.dart' as http;
-
-import 'GridPhotoViewer.dart';
 
 class FuliPage extends StatefulWidget {
   @override
@@ -104,17 +103,18 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   Widget _getItem(GankInfo item) {
     return new Container(
       child: new GestureDetector(
-          onTap: () {
-            showPhoto(context, item);
-          },
-          child: new CachedNetworkImage(
+        onTap: () {
+          showPhoto(context, item);
+        },
+        child: new CachedNetworkImage(
+          fit: BoxFit.cover,
+          placeholder: Image(
+            image: AssetImage("images/fuli.png"),
             fit: BoxFit.cover,
-            placeholder: Image(
-              image: AssetImage("images/fuli.png"),
-              fit: BoxFit.cover,
-            ),
-            imageUrl: item.url,
-          )),
+          ),
+          imageUrl: item.url,
+        ),
+      ),
     );
   }
 

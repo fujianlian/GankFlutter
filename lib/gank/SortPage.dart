@@ -21,7 +21,6 @@ class SortPage extends StatefulWidget {
 class SortPageState extends State<SortPage>
     with SingleTickerProviderStateMixin {
   TabController _controller;
-  bool _customIndicator = false;
 
   @override
   void initState() {
@@ -36,21 +35,7 @@ class SortPageState extends State<SortPage>
   }
 
   Decoration getIndicator() {
-    if (!_customIndicator) return const UnderlineTabIndicator();
-    return ShapeDecoration(
-      shape: const StadiumBorder(
-            side: BorderSide(
-              color: Colors.white24,
-              width: 2.0,
-            ),
-          ) +
-          const StadiumBorder(
-            side: BorderSide(
-              color: Colors.transparent,
-              width: 4.0,
-            ),
-          ),
-    );
+   return const UnderlineTabIndicator();
   }
 
   @override

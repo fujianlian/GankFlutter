@@ -111,10 +111,9 @@ class ShowListWidget extends StatelessWidget {
 }
 
 class HistoryListWidget extends StatelessWidget {
-  HistoryListWidget({Key key, this.info, this.contexts}) : super(key: key);
+  HistoryListWidget({Key key, this.info}) : super(key: key);
 
   final HistoryInfo info;
-  final BuildContext contexts;
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +123,7 @@ class HistoryListWidget extends StatelessWidget {
       child: new GestureDetector(
           onTap: () {
             //导航到新路由
-            Navigator.push(contexts == null ? context : contexts,
-                new MaterialPageRoute(builder: (context) {
+            Navigator.push(context, new MaterialPageRoute(builder: (context) {
               return new DailyPage(title: info.publishedAt.substring(0, 10));
             }));
           },
@@ -166,7 +164,7 @@ class HistoryListWidget extends StatelessWidget {
                 ),
               ],
             ),
-            margin: const EdgeInsets.fromLTRB(8.0, 6.0, 8.0, 2.0),
+            margin: const EdgeInsets.all(4.0),
           )),
     );
   }

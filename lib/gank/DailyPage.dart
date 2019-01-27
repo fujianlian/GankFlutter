@@ -24,18 +24,6 @@ class DailyPageState extends State<DailyPage> {
   DailyInfo _dailyInfo;
   BuildContext contexts;
 
-  IconData _backIcon() {
-    switch (Theme.of(contexts).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-        return Icons.arrow_back;
-      case TargetPlatform.iOS:
-        return Icons.arrow_back_ios;
-    }
-    assert(false);
-    return null;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -45,26 +33,14 @@ class DailyPageState extends State<DailyPage> {
   @override
   Widget build(BuildContext context) {
     contexts = context;
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(widget.title),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(_backIcon()),
-                onPressed: () {
-                  Navigator.pop(contexts);
-                },
-              );
-            },
-          ),
-        ),
-        body: _dailyInfo == null
-            ? LoadingWidget()
-            : ListView(children: _showAllList()),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(widget.title),
       ),
+      body: _dailyInfo == null
+          ? LoadingWidget()
+          : ListView(children: _showAllList()),
     );
   }
 

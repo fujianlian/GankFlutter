@@ -4,18 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutPage extends StatelessWidget {
   Color _color;
 
-  IconData _backIcon(BuildContext context) {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-        return Icons.arrow_back;
-      case TargetPlatform.iOS:
-        return Icons.arrow_back_ios;
-    }
-    assert(false);
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     _color = Theme.of(context).accentColor;
@@ -23,16 +11,6 @@ class AboutPage extends StatelessWidget {
         appBar: new AppBar(
           title: new Text("关于"),
           centerTitle: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(_backIcon(context)),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
         ),
         body: ListView(
           padding: EdgeInsets.all(15.0),
