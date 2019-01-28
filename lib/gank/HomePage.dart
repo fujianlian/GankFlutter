@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
-import 'package:flutter_gank/gank/GridPhotoViewer.dart';
 import 'package:flutter_gank/gank/HistoryListPage.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
@@ -64,7 +63,7 @@ class HomeState extends State<HomePage> {
           showPhoto(contexts, _dailyInfo.results.fuli[0]);
         },
         child: Hero(
-            tag: _dailyInfo.results.fuli[0].id,
+            tag: _dailyInfo.results.fuli[0].desc,
             child: new CachedNetworkImage(
               placeholder: Image(
                 image: AssetImage("images/fuli.png"),
@@ -113,17 +112,22 @@ class HomeState extends State<HomePage> {
     Navigator.push(context,
         MaterialPageRoute<void>(builder: (BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(photo.desc),
-          centerTitle: true,
-        ),
-        body: SizedBox.expand(
-          child: Hero(
-            tag: photo.id,
-            child: GridPhotoViewer(photo: photo),
+          appBar: AppBar(
+            title: Text(photo.desc),
+            centerTitle: true,
           ),
-        ),
-      );
+          body: Center(
+              child: Hero(
+            tag: photo.desc,
+            child: new CachedNetworkImage(
+              fit: BoxFit.cover,
+              placeholder: Image(
+                image: AssetImage("images/fuli.png"),
+                fit: BoxFit.cover,
+              ),
+              imageUrl: photo.url,
+            ),
+          )));
     }));
   }
 

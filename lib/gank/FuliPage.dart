@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
-import 'package:flutter_gank/gank/GridPhotoViewer.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/models/PageList.dart';
 import 'package:http/http.dart' as http;
@@ -97,26 +96,9 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
 
   Widget _renderRow(BuildContext context, int index) {
     if (index < _data.length) {
-      return _getItem(_data[index]);
+      return _PhotoItem(info: _data[index]);
     }
     return _getMoreWidget();
-  }
-
-  Widget _getItem(GankInfo item) {
-    return new Container(
-      child: new GestureDetector(
-          onTap: () {
-            showPhoto(context, item);
-          },
-          child: new CachedNetworkImage(
-            fit: BoxFit.cover,
-            placeholder: Image(
-              image: AssetImage("images/fuli.png"),
-              fit: BoxFit.cover,
-            ),
-            imageUrl: item.url,
-          )),
-    );
   }
 
   /// 加载更多时显示的组件,给用户提示
@@ -148,21 +130,6 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  void showPhoto(BuildContext context, GankInfo photo) {
-    Navigator.push(context,
-        MaterialPageRoute<void>(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(photo.desc),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: GridPhotoViewer(photo: photo),
-        ),
-      );
-    }));
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -171,4 +138,50 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class _PhotoItem extends StatelessWidget {
+  _PhotoItem({Key key, this.info}) : super(key: key);
+
+  final GankInfo info;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new GestureDetector(
+          onTap: () {
+            _showPhoto(context);
+          },
+          child: Hero(
+              tag: info.url,
+              child: new CachedNetworkImage(
+                fit: BoxFit.cover,
+                placeholder: Image(
+                  image: AssetImage("images/fuli.png"),
+                  fit: BoxFit.cover,
+                ),
+                imageUrl: info.url,
+              ))),
+    );
+  }
+
+  _showPhoto(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute<void>(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(info.desc),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Hero(
+              tag: info.url,
+              child: new CachedNetworkImage(
+                fit: BoxFit.fitWidth,
+                imageUrl: info.url,
+              )),
+        ),
+      );
+    }));
+  }
 }
