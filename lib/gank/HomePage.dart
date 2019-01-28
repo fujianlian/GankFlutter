@@ -58,11 +58,13 @@ class HomeState extends State<HomePage> {
   List<Widget> _showAllList() {
     var l = List<Widget>();
     var top = new Container(
-        margin: EdgeInsets.only(bottom: 5.0),
-        child: new GestureDetector(
-            onTap: () {
-              showPhoto(contexts, _dailyInfo.results.fuli[0]);
-            },
+      margin: EdgeInsets.only(bottom: 5.0),
+      child: new GestureDetector(
+        onTap: () {
+          showPhoto(contexts, _dailyInfo.results.fuli[0]);
+        },
+        child: Hero(
+            tag: _dailyInfo.results.fuli[0].id,
             child: new CachedNetworkImage(
               placeholder: Image(
                 image: AssetImage("images/fuli.png"),
@@ -75,7 +77,9 @@ class HomeState extends State<HomePage> {
                   ? ""
                   : _dailyInfo.results.fuli[0].url,
               height: 190.0,
-            )));
+            )),
+      ),
+    );
     l.add(top);
     if (_dailyInfo.results.android != null)
       l.addAll(_showList("Android", _dailyInfo.results.android));

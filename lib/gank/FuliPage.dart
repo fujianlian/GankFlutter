@@ -86,9 +86,11 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
               itemCount: _loadFinish ? _data.length : _data.length + 1,
               controller: _scrollController,
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: _crossAxisCount,
-                  mainAxisSpacing: 5.0,
-                  crossAxisSpacing: 5.0),
+                crossAxisCount: _crossAxisCount,
+                childAspectRatio: _crossAxisCount == 1 ? 1 : 0.8,
+                mainAxisSpacing: 5.0,
+                crossAxisSpacing: 5.0,
+              ),
             )),
     );
   }
@@ -103,18 +105,17 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   Widget _getItem(GankInfo item) {
     return new Container(
       child: new GestureDetector(
-        onTap: () {
-          showPhoto(context, item);
-        },
-        child: new CachedNetworkImage(
-          fit: BoxFit.cover,
-          placeholder: Image(
-            image: AssetImage("images/fuli.png"),
+          onTap: () {
+            showPhoto(context, item);
+          },
+          child: new CachedNetworkImage(
             fit: BoxFit.cover,
-          ),
-          imageUrl: item.url,
-        ),
-      ),
+            placeholder: Image(
+              image: AssetImage("images/fuli.png"),
+              fit: BoxFit.cover,
+            ),
+            imageUrl: item.url,
+          )),
     );
   }
 
@@ -155,11 +156,8 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
           title: Text(photo.desc),
           centerTitle: true,
         ),
-        body: SizedBox.expand(
-          child: Hero(
-            tag: photo.id,
-            child: GridPhotoViewer(photo: photo),
-          ),
+        body: Center(
+          child: GridPhotoViewer(photo: photo),
         ),
       );
     }));
