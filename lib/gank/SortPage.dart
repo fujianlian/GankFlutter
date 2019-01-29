@@ -19,7 +19,7 @@ class SortPage extends StatefulWidget {
 }
 
 class SortPageState extends State<SortPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _controller;
 
   @override
@@ -34,10 +34,6 @@ class SortPageState extends State<SortPage>
     super.dispose();
   }
 
-  Decoration getIndicator() {
-   return const UnderlineTabIndicator();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +43,11 @@ class SortPageState extends State<SortPage>
         bottom: TabBar(
           controller: _controller,
           isScrollable: true,
-          indicator: getIndicator(),
-          tabs: _allPages.map<Tab>((String page) {
-            return Tab(text: page);
-          }).toList(),
+          tabs: _allPages
+              .map<Tab>(
+                (String page) => Tab(text: page),
+              )
+              .toList(),
         ),
       ),
       body: TabBarView(
@@ -61,4 +58,7 @@ class SortPageState extends State<SortPage>
           }).toList()),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

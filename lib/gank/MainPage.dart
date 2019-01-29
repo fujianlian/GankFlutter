@@ -4,14 +4,7 @@ import 'SortPage.dart';
 import 'MyPage.dart';
 import 'FuliPage.dart';
 
-class MainPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MainPageWidget();
-  }
-}
-
-class MainPageWidget extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,7 +12,7 @@ class MainPageWidget extends StatefulWidget {
   }
 }
 
-class MainPageState extends State<MainPageWidget> {
+class MainPageState extends State<MainPage> {
   int _tabIndex = 0;
   var tabImages;
   var appBarTitles = ['最新', '分类', '妹纸', '我的'];

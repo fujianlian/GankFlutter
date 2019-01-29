@@ -15,14 +15,13 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class HomeState extends State<HomePage> {
+class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   bool isLoading;
   DailyInfo _dailyInfo;
   BuildContext contexts;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _pullNet();
   }
@@ -140,4 +139,7 @@ class HomeState extends State<HomePage> {
       });
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

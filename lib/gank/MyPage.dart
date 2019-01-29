@@ -9,7 +9,7 @@ class MyPage extends StatefulWidget {
   }
 }
 
-class _MyPageState extends State<MyPage> {
+class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   static var _color = Color(0xFFFCFCFC);
   static BuildContext _context;
 
@@ -104,4 +104,7 @@ class _MyPageState extends State<MyPage> {
       ),
     ),
   ];
+
+  @override
+  bool get wantKeepAlive => true;
 }
