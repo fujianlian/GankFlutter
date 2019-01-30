@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/gank/HistoryListPage.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_gank/net/api_gank.dart';
+import 'package:flutter_gank/net/api_github.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -130,14 +129,14 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
     }));
   }
 
-  void _pullNet() async {
-    var url = "http://gank.io/api/today";
-    await http.get(url).then((http.Response response) {
+  void _pullNet() {
+    GankApi.getToday().then((DailyInfo info) {
       isLoading = false;
       setState(() {
-        _dailyInfo = DailyInfo.fromJson(json.decode(response.body));
+        _dailyInfo = info;
       });
     });
+    GithubApi.login("", "");
   }
 
   @override

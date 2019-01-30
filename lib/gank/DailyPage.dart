@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_gank/net/api_gank.dart';
 
 class DailyPage extends StatefulWidget {
   DailyPage({Key key, this.title}) : super(key: key);
@@ -119,12 +117,12 @@ class DailyPageState extends State<DailyPage> {
     }));
   }
 
-  void _pullNet() async {
-    var url = "http://gank.io/api/day/${widget.title.replaceAll("-", "/")}";
-    await http.Client().get(url).then((http.Response response) {
+  void _pullNet() {
+    GankApi.getDailyInfo(widget.title.replaceAll("-", "/"))
+        .then((DailyInfo info) {
       isLoading = false;
       setState(() {
-        _dailyInfo = DailyInfo.fromJson(json.decode(response.body));
+        _dailyInfo = info;
       });
     });
   }

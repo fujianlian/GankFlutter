@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/models/HistoryList.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_gank/net/api_gank.dart';
 
 import 'CommonComponent.dart';
 
@@ -41,16 +39,14 @@ class HistoryListPageState extends State<HistoryListPage>
     });
   }
 
-  void _pullNet() async {
-    var url = "http://gank.io/api/history/content/$_count/$_pageIndex";
-    await http.get(url).then((http.Response response) {
+  void _pullNet() {
+    GankApi.getHistory(_count, _pageIndex).then((HistoryList list) {
       isLoading = false;
-      var convertDataToJson = HistoryList.fromJson(json.decode(response.body));
       setState(() {
-        if (convertDataToJson.results.isEmpty) {
+        if (list.results.isEmpty) {
           _loadFinish = true;
         } else {
-          _data.addAll(convertDataToJson.results);
+          _data.addAll(list.results);
         }
       });
     });

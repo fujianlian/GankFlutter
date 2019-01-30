@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/models/PageList.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_gank/net/api_gank.dart';
 
 class FuliPage extends StatefulWidget {
   @override
@@ -41,16 +40,14 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     });
   }
 
-  void _pullNet() async {
-    var irl = "http://gank.io/api/data/福利/20/$_currentIndex";
-    await http.get(irl).then((http.Response response) {
+  void _pullNet() {
+    GankApi.getListData("福利", 20, _currentIndex).then((PageList list) {
       isLoading = false;
-      var convertDataToJson = PageList.fromJson(json.decode(response.body));
       setState(() {
-        if (convertDataToJson.results.isEmpty) {
+        if (list.results.isEmpty) {
           _loadFinish = true;
         } else {
-          _data.addAll(convertDataToJson.results);
+          _data.addAll(list.results);
         }
       });
     });
