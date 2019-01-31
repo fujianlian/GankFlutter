@@ -101,7 +101,10 @@ class AboutPage extends StatelessWidget {
               style:
                   new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
           _line(),
-          _linkTextPadding("http", "https://pub.dartlang.org/packages/http"),
+          _linkTextPadding("dio", "https://github.com/flutterchina/dio"),
+          _linkTextPadding("connectivity", "https://github.com/flutter/plugins"),
+          _linkTextPadding("fluttertoast", "https://github.com/PonnamKarthik/FlutterToast"),
+          _linkTextPadding("shared_preferences", "https://github.com/flutter/plugins"),
           _linkTextPadding("cupertino_icons",
               "https://pub.dartlang.org/packages/cupertino_icons"),
           _linkTextPadding("json_annotation",

@@ -47,7 +47,13 @@
 
 ## 第三方开源库
 
-[http]("https://pub.dartlang.org/packages/http")
+[dio]("https://github.com/flutterchina/dio")
+
+[connectivity]("https://github.com/flutter/plugins")
+
+[shared_preferences]("https://github.com/flutter/plugins")
+
+[fluttertoast]("https://github.com/PonnamKarthik/FlutterToast")
 
 [json_serializable]("https://github.com/dart-lang/json_serializable")
 

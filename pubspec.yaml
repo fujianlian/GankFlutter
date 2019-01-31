@@ -25,6 +25,8 @@ dependencies:
   url_launcher: ^4.0.3
   dio: ^1.0.13
   connectivity: ^0.3.2
+  shared_preferences: ^0.4.0
+  fluttertoast: ^2.2.11
 
 dev_dependencies:
   flutter_test:
@@ -47,8 +49,8 @@ flutter:
   assets:
       - images/fuli.png
       - images/holder.png
-      - images/avatar.png
       - images/github.png
+      - images/github_logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

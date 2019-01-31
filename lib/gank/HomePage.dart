@@ -5,7 +5,6 @@ import 'package:flutter_gank/gank/HistoryListPage.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/net/api_gank.dart';
-import 'package:flutter_gank/net/api_github.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -136,7 +135,6 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
         _dailyInfo = info;
       });
     });
-    GithubApi.login("", "");
   }
 
   @override

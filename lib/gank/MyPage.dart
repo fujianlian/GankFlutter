@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/AboutPage.dart';
+import 'package:flutter_gank/gank/LoginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -12,6 +15,23 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   static var _color = Color(0xFFFCFCFC);
   static BuildContext _context;
+  SharedPreferences _prefs;
+  String _avatarUrl = "";
+  String _name = "";
+  var _isLogin = false;
+
+  void _getInfo() async {
+    if (_prefs == null) _prefs = await SharedPreferences.getInstance();
+    _isLogin = _prefs.getBool("isLogin") ?? false;
+    _avatarUrl = _prefs.getString("avatar_url") ?? "";
+    _name = _prefs.getString("name") ?? "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +44,71 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
       body: new Container(
           color: Color(0xFFF0F0F0),
           child: ListView(
-            children: list,
+            children: <Widget>[_avatar(), _line()],
           )),
     );
   }
 
-  List<Widget> list = <Widget>[
-    new Container(
+  void _refreshInfo() {
+    setState(() {
+      _isLogin = _prefs.getBool("isLogin") ?? false;
+      _avatarUrl = _prefs.getString("avatar_url") ?? "";
+      _name = _prefs.getString("name") ?? "";
+    });
+  }
+
+  Widget _avatar() {
+    return new Container(
       color: _color,
       padding: EdgeInsets.only(right: 16.0, top: 5.0, bottom: 5.0),
-      child: new Row(
-        children: <Widget>[
-          new Expanded(
-            child: new ListTile(
-              title: new Text('Github账号登陆',
-                  style: new TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 20.0)),
-              subtitle: new Text(
-                "暂未支持，下个版本实现",
-                style: new TextStyle(fontSize: 12.0),
+      child: new GestureDetector(
+        onTap: () {
+          if (!_isLogin) {
+            Navigator.of(_context)
+                .push(new MaterialPageRoute(builder: (context) {
+              return new LoginPage();
+            })).then((value) {
+              if (value) {
+                _refreshInfo();
+              }
+            });
+          }
+        },
+        child: new Row(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 15.0),
+            ),
+            new Expanded(
+              child: new Text(
+                _isLogin ? _name : 'Github账号登陆',
+                style: new TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20.0,
+                ),
               ),
             ),
-          ),
-          new Image(
-            image: AssetImage("images/avatar.png"),
-            width: 56,
-            height: 56,
-          )
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.0),
+              child: new CachedNetworkImage(
+                placeholder: new Image(
+                  image: AssetImage("images/github_logo.png"),
+                  width: 56,
+                  height: 56,
+                ),
+                imageUrl: _avatarUrl,
+                width: 56,
+                height: 56,
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-    new Container(
+    );
+  }
+
+  Widget _line() {
+    return new Container(
       margin: EdgeInsets.only(top: 15.0),
       color: _color,
       child: new Column(
@@ -102,8 +156,8 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
           ),
         ],
       ),
-    ),
-  ];
+    );
+  }
 
   @override
   bool get wantKeepAlive => true;

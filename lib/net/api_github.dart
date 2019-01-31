@@ -20,7 +20,7 @@ class GithubApi {
 
   static Future<String> getAccessToken(
       String userName, String password) async {
-    String basic = "Basic ${base64Encode(utf8.encode("fujianlian:1235fjnbv"))}";
+    String basic = "Basic ${base64Encode(utf8.encode("$userName:$password"))}";
     HttpGithub.setHeader({"Authorization": basic, "cache-control": "no-cache"});
     var response = await HttpGithub.postJson("authorizations", {
       "client_id": "32a1d35d1df9b9b5757f",

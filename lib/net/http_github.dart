@@ -26,9 +26,9 @@ class HttpGithub {
       if (connectivityResult == ConnectivityResult.none) {
         e.message = "网络连接异常，请检查手机网络设置";
       } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        e.message = "网络连接异常，请检查手机网络设置";
+        e.message = "用户名或密码错误";
       } else {
-        e.message = "未知错误";
+        e.message = "用户名或密码错误";
       }
       return e; //continue
     };
