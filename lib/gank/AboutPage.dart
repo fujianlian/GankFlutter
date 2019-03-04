@@ -31,14 +31,10 @@ class AboutPage extends StatelessWidget {
         ),
         new Text(
           "干货集中营是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，"
-              "分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片功能。",
+              "分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片"
+              "，历史干货，提交干货，github登录功能。",
           style: new TextStyle(height: 1.2),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-        ),
-        new Text("后续版本会陆续实现历史干货，提交干货，github登录功能。",
-            style: new TextStyle(height: 1.2)),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
         ),
@@ -111,8 +107,8 @@ class AboutPage extends StatelessWidget {
               "https://github.com/dart-lang/json_serializable"),
           _linkTextPadding("json_serializable",
               "https://github.com/dart-lang/json_serializable"),
-          _linkTextPadding("flutter_webview_plugin",
-              "https://github.com/dart-flitter/flutter_webview_plugin"),
+          _linkTextPadding("webview_flutter",
+              "https://pub.dartlang.org/packages/webview_flutter"),
           _linkTextPadding("cached_network_image",
               "https://github.com/renefloor/flutter_cached_network_image"),
           _linkTextPadding("url_launcher",

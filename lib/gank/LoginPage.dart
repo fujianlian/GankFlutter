@@ -21,19 +21,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('登录'),
-        centerTitle: true,
-      ),
-      body: _isSubmit
-          ? new Stack(
-              children: <Widget>[
-                _layout(),
-                IosLoadingWidget(),
-              ],
-            )
-          : _layout(),
-    );
+        appBar: new AppBar(
+          title: new Text('登录'),
+          centerTitle: true,
+        ),
+        body: new Stack(
+          children: <Widget>[
+            _layout(),
+            _isSubmit
+                ? IosLoadingWidget()
+                : Container(
+                    color: Colors.transparent,
+                    height: 0.0,
+                  ),
+          ],
+        ));
   }
 
   Widget _layout() {

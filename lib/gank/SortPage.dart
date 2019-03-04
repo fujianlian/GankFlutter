@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'ArticleListPage.dart';
-
-const List<String> _allPages = <String>[
-  '全部',
-  'Android',
-  'iOS',
-  '前端',
-  '休息视频',
-  '拓展资源',
-  '瞎推荐',
-  'App'
-];
+import 'FabuPage.dart';
 
 class SortPage extends StatefulWidget {
   @override
@@ -21,6 +11,16 @@ class SortPage extends StatefulWidget {
 class SortPageState extends State<SortPage>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _controller;
+  List<String> _allPages = <String>[
+    '全部',
+    'Android',
+    'iOS',
+    '前端',
+    '休息视频',
+    '拓展资源',
+    '瞎推荐',
+    'App'
+  ];
 
   @override
   void initState() {
@@ -40,6 +40,17 @@ class SortPageState extends State<SortPage>
       appBar: AppBar(
         title: const Text('分类'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline),
+            onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) {
+                      return new FabuPage();
+                    }));
+            },
+          )
+        ],
         bottom: TabBar(
           controller: _controller,
           isScrollable: true,

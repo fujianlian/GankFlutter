@@ -22,15 +22,13 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
 
   void _getInfo() async {
     if (_prefs == null) _prefs = await SharedPreferences.getInstance();
-    _isLogin = _prefs.getBool("isLogin") ?? false;
-    _avatarUrl = _prefs.getString("avatar_url") ?? "";
-    _name = _prefs.getString("name") ?? "";
+    _refreshInfo();
   }
 
   @override
   void initState() {
-    super.initState();
     _getInfo();
+    super.initState();
   }
 
   @override
