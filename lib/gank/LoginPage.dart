@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/models/github_user.dart';
 import 'package:flutter_gank/net/api_github.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 44.0,
           child: new RaisedButton(
               onPressed: _login,
-              color: Colors.blue,
+              color: mainColor,
               child: new Text(
                 '登录',
                 style: new TextStyle(color: Colors.white, fontSize: 16.0),

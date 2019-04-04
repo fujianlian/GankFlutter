@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/colors.dart';
 import 'gank/MainPage.dart';
 
 void main() => runApp(MyApp());
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "FlutterGank",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: mainColor,
         scaffoldBackgroundColor: Color(0xFFF7F7F7),
       ),
       home: MainPage(),

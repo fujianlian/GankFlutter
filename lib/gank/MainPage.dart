@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/colors.dart';
 import 'HomePage.dart';
 import 'SortPage.dart';
 import 'MyPage.dart';
@@ -30,7 +31,7 @@ class MainPageState extends State<MainPage> {
   Text getTabTitle(int curIndex) {
     if (curIndex == _tabIndex) {
       return new Text(appBarTitles[curIndex],
-          style: new TextStyle(color: Colors.blue));
+          style: new TextStyle(color: mainColor));
     } else {
       return new Text(appBarTitles[curIndex],
           style: new TextStyle(color: const Color(0xdd888888)));
