@@ -89,7 +89,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.0),
               child: new CachedNetworkImage(
-                placeholder: new Image(
+                placeholder: (context, url) => new Image(
                   image: AssetImage("images/github_logo.png"),
                   width: 56,
                   height: 56,

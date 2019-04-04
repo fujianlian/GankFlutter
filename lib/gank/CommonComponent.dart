@@ -74,7 +74,7 @@ class ShowListWidget extends StatelessWidget {
                 : new Container(
                     margin: EdgeInsets.only(left: 8.0),
                     child: new CachedNetworkImage(
-                      placeholder: Image(
+                      placeholder: (context, url) => new Image(
                         image: AssetImage("images/holder.png"),
                         fit: BoxFit.cover,
                         width: 90,

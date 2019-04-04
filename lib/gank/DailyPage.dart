@@ -52,7 +52,7 @@ class DailyPageState extends State<DailyPage> {
         child: Hero(
             tag: _dailyInfo.results.fuli[0].desc,
             child: new CachedNetworkImage(
-              placeholder: Image(
+              placeholder: (context, url) => new Image(
                 image: AssetImage("images/fuli.png"),
                 fit: BoxFit.cover,
                 height: 190.0,
@@ -108,7 +108,7 @@ class DailyPageState extends State<DailyPage> {
                   tag: photo.desc,
                   child: new CachedNetworkImage(
                     fit: BoxFit.cover,
-                    placeholder: Image(
+                    placeholder: (context, url) => new Image(
                       image: AssetImage("images/fuli.png"),
                       fit: BoxFit.cover,
                     ),

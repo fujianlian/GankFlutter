@@ -11,7 +11,7 @@ class HttpGithub {
   static final baseUrl = 'https://api.github.com/';
 
   /// 基础信息配置
-  static final Dio _dio = new Dio(new Options(
+  static final Dio _dio = new Dio(new BaseOptions(
       method: "get",
       baseUrl: baseUrl,
       connectTimeout: 5000,
@@ -21,17 +21,19 @@ class HttpGithub {
   /// 拦截器设置
   static void setInterceptor() {
     // 当请求失败时做一些预处理
-    _dio.interceptor.response.onError = (DioError e) async {
-      var connectivityResult = await (new Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.none) {
-        e.message = "网络连接异常，请检查手机网络设置";
-      } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        e.message = "用户名或密码错误";
-      } else {
-        e.message = "用户名或密码错误";
-      }
-      return e; //continue
-    };
+    _dio.interceptors.add(InterceptorsWrapper(
+        onError: (DioError e) async {
+          var connectivityResult = await (new Connectivity().checkConnectivity());
+          if (connectivityResult == ConnectivityResult.none) {
+            e.message = "网络连接异常，请检查手机网络设置";
+          } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+            e.message = "用户名或密码错误";
+          } else {
+            e.message = "用户名或密码错误";
+          }
+          return e; //continue
+        }
+    ));
   }
 
   static void setHeader(Map<String, String> header) {

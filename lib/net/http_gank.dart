@@ -9,10 +9,10 @@ class HttpGank {
   static final debug = !bool.fromEnvironment("dart.vm.product");
 
   /// 服务器路径
-  static final baseUrl = 'http://gank.io/api/';
+  static final baseUrl = 'https://gank.io/api/';
 
   /// 基础信息配置
-  static final Dio _dio = new Dio(new Options(
+  static final Dio _dio = new Dio(new BaseOptions(
       method: "get",
       baseUrl: baseUrl,
       connectTimeout: 5000,
@@ -22,7 +22,8 @@ class HttpGank {
   /// 拦截器设置
   static void setInterceptor() {
     // 当请求失败时做一些预处理
-    _dio.interceptor.response.onError = (DioError e) async {
+    _dio.interceptors.add(InterceptorsWrapper(onError: (DioError e) async {
+      // 当请求失败时做一些预处理
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
         e.message = "网络连接异常，请检查手机网络设置";
@@ -32,7 +33,7 @@ class HttpGank {
         e.message = "未知错误";
       }
       return e; //continue
-    };
+    }));
   }
 
   static void setHeader(Map<String, String> header) {
@@ -43,29 +44,29 @@ class HttpGank {
   static final HttpError unKnowError = HttpError(-1, "未知异常");
 
   static Future<Map<String, dynamic>> getJson<T>(
-      String uri, Map<String, dynamic> paras) =>
+          String uri, Map<String, dynamic> paras) =>
       _httpJson("get", uri, data: paras).then(logicalSuccessTransform);
 
   static Future<Map<String, dynamic>> getForm<T>(
-      String uri, Map<String, dynamic> paras) =>
+          String uri, Map<String, dynamic> paras) =>
       _httpJson("get", uri, data: paras, dataIsJson: false)
           .then(logicalSuccessTransform);
 
   /// 表单方式的post
   static Future<Map<String, dynamic>> postForm<T>(
-      String uri, Map<String, dynamic> paras) =>
+          String uri, Map<String, dynamic> paras) =>
       _httpJson("post", uri, data: paras, dataIsJson: false)
           .then(logicalSuccessTransform);
 
   /// requestBody (json格式参数) 方式的 post
   static Future<Map<String, dynamic>> postJson(
-      String uri, Map<String, dynamic> body) =>
+          String uri, Map<String, dynamic> body) =>
       _httpJson("post", uri, data: body).then(logicalSuccessTransform);
 
   static Future<Response<Map<String, dynamic>>> _httpJson(
       String method, String uri,
       {Map<String, dynamic> data, bool dataIsJson = true}) async {
-    setInterceptor();
+    if (!uri.contains("today")) setInterceptor();
 
     /// 如果为 get方法，则进行参数拼接
     if (method == "get") {

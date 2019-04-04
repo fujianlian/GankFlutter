@@ -8,16 +8,16 @@
 
 ## 应用截图
 
-![1](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/home.png) | ![2](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/sort.png) | ![3](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_one.png) |
+![1](./screenshot/home.png) | ![2](./screenshot/sort.png) | ![3](./screenshot/girl_one.png) |
 | :--: | :--: | :--: |
 | 最新 | 分类 | 妹纸1 |
 
-![1](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_two.png) | ![2](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/girl_three.png) | ![3](https://github.com/fujianlian/GankFlutter/blob/master/screenshot/my.png) |
+![1](./screenshot/girl_two.png) | ![2](./screenshot/girl_three.png) | ![3](./screenshot/my.png) |
 | :--: | :--: | :--: |
 | 妹纸2 | 妹纸3 | 我的 |
 
 ## Android app下载
-![1](https://user-gold-cdn.xitu.io/2019/1/6/168228c2430108b3?w=300&h=300&f=png&s=11212)
+![1](./screenshot/qrcode.png)
 
 ## 版本更新日志
 

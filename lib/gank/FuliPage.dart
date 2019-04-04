@@ -153,7 +153,7 @@ class _PhotoItem extends StatelessWidget {
               tag: info.url,
               child: new CachedNetworkImage(
                 fit: BoxFit.cover,
-                placeholder: Image(
+                placeholder: (context, url) => new Image(
                   image: AssetImage("images/fuli.png"),
                   fit: BoxFit.cover,
                 ),

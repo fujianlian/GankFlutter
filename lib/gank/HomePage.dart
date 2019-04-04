@@ -62,11 +62,7 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
         child: Hero(
             tag: _dailyInfo.results.fuli[0].desc,
             child: new CachedNetworkImage(
-              placeholder: Image(
-                image: AssetImage("images/fuli.png"),
-                fit: BoxFit.cover,
-                height: 190.0,
-              ),
+
               fit: BoxFit.cover,
               imageUrl: _dailyInfo.results.fuli == null ||
                       _dailyInfo.results.fuli.isEmpty
@@ -118,10 +114,7 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
             tag: photo.desc,
             child: new CachedNetworkImage(
               fit: BoxFit.cover,
-              placeholder: Image(
-                image: AssetImage("images/fuli.png"),
-                fit: BoxFit.cover,
-              ),
+
               imageUrl: photo.url,
             ),
           )));
@@ -134,7 +127,12 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
       setState(() {
         _dailyInfo = info;
       });
-    });
+    }).catchError((onError){
+      setState(() {
+        isLoading = false;
+      });
+    })
+    ;
   }
 
   @override
