@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
@@ -44,54 +45,36 @@ class DailyPageState extends State<DailyPage> {
   List<Widget> _showAllList() {
     var l = List<Widget>();
     var top = new Container(
-      margin: EdgeInsets.only(bottom: 5.0),
       child: new GestureDetector(
         onTap: () {
-          showPhoto(contexts, _dailyInfo.results.fuli[0]);
+          showPhoto(contexts, GankInfo.fromJson(_dailyInfo.results["福利"][0]));
         },
         child: Hero(
-            tag: _dailyInfo.results.fuli[0].desc,
+            tag: GankInfo.fromJson(_dailyInfo.results["福利"][0]).desc,
             child: new CachedNetworkImage(
-              placeholder: (context, url) => new Image(
-                image: AssetImage("images/fuli.png"),
-                fit: BoxFit.cover,
-                height: 190.0,
-              ),
               fit: BoxFit.cover,
-              imageUrl: _dailyInfo.results.fuli == null ||
-                      _dailyInfo.results.fuli.isEmpty
+              imageUrl: _dailyInfo.results["福利"] == null ||
+                  _dailyInfo.results["福利"].isEmpty
                   ? ""
-                  : _dailyInfo.results.fuli[0].url,
+                  : GankInfo.fromJson(_dailyInfo.results["福利"][0]).url,
               height: 190.0,
             )),
       ),
     );
     l.add(top);
-    if (_dailyInfo.results.android != null)
-      l.addAll(_showList("Android", _dailyInfo.results.android));
-    if (_dailyInfo.results.iOS != null)
-      l.addAll(_showList("iOS", _dailyInfo.results.iOS));
-    if (_dailyInfo.results.video != null)
-      l.addAll(_showList("休息视频", _dailyInfo.results.video));
-    if (_dailyInfo.results.resource != null)
-      l.addAll(_showList("拓展资源", _dailyInfo.results.resource));
+    _dailyInfo.category.remove("福利");
+    _dailyInfo.category.forEach((f) => {
+        l.addAll(_showList(GankInfo.fromJson(
+        _dailyInfo.results[f][_dailyInfo.results[f].length - 1])))
+  });
     return l;
   }
 
-  List<Widget> _showList(String title, List<GankInfo> list) {
+  List<Widget> _showList(GankInfo info) {
     var l = List<Widget>();
-    var top = new Container(
-        margin: EdgeInsets.all(10.0),
-        child: new Row(
-          children: <Widget>[
-            Text(
-              title,
-              style: new TextStyle(fontSize: 20.0, color: Colors.black),
-            ),
-          ],
-        ));
-    l.add(top);
-    list.forEach((f) => l.add(ShowListWidget(info: f, contexts: contexts)));
+    l.add(HomeListWidget(info: info, contexts: contexts));
+    if (info.type != _dailyInfo.category[_dailyInfo.category.length - 1])
+      l.add(Divider(height: 0.5, color: c9));
     return l;
   }
 

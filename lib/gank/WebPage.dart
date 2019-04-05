@@ -29,6 +29,7 @@ class WebPageState extends State<WebPage> {
         },
         child: WebView(
           initialUrl: widget.url,
+          javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _webViewController = webViewController;
           },
