@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/colors.dart';
+import 'package:flutter_gank/wanandroid/WanPage.dart';
 import 'HomePage.dart';
 import 'SortPage.dart';
 import 'MyPage.dart';
@@ -16,7 +17,7 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   int _tabIndex = 0;
   var tabImages;
-  var appBarTitles = ['最新', '分类', '妹纸', '我的'];
+  var appBarTitles = ['最新', '分类', '妹纸', '玩安卓', '我的'];
 
   /*
    * 根据索引获得对应的normal或是press的icon
@@ -43,9 +44,10 @@ class MainPageState extends State<MainPage> {
       bottom的按压图片
      */
     tabImages = [
-      Icon(Icons.home),
+      Icon(Icons.public),
       Icon(Icons.widgets),
       Icon(Icons.spa),
+      Icon(Icons.android),
       Icon(Icons.person),
     ];
   }
@@ -60,6 +62,7 @@ class MainPageState extends State<MainPage> {
           HomePage(),
           SortPage(),
           FuliPage(),
+          WanPage(),
           MyPage(),
         ],
         index: _tabIndex,
@@ -74,6 +77,8 @@ class MainPageState extends State<MainPage> {
               icon: getTabIcon(2), title: getTabTitle(2)),
           new BottomNavigationBarItem(
               icon: getTabIcon(3), title: getTabTitle(3)),
+          new BottomNavigationBarItem(
+              icon: getTabIcon(4), title: getTabTitle(4)),
         ],
         //设置显示的模式
         type: BottomNavigationBarType.fixed,

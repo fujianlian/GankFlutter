@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/AboutPage.dart';
-import 'package:flutter_gank/gank/LoginPage.dart';
+import 'package:flutter_gank/wanandroid/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -42,7 +42,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
       body: new Container(
           color: Color(0xFFF0F0F0),
           child: ListView(
-            children: <Widget>[_avatar(), _line()],
+            children: <Widget>[_line()],
           )),
     );
   }
