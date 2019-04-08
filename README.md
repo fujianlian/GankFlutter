@@ -2,24 +2,32 @@
 
 # GankFlutter
 
-[干货集中营](https://github.com/fujianlian/GankFlutter)是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片，历史干货，提交干货，github登录。
+[干货集中营](https://gank.io)是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片，历史干货，提交干货，github登录。
 
 后续版本会集成 [@鸿洋大神](https://github.com/hongyangAndroid)的[玩Android](https://www.wanandroid.com/)网站数据
 
 ## 应用截图
 
-![1](./screenshot/home.png) | ![2](./screenshot/sort.png) | ![3](./screenshot/girl_one.png) |
+![1](./screenshot/1.png) | ![2](./screenshot/2.png) | ![3](./screenshot/3.png) |
 | :--: | :--: | :--: |
-| 最新 | 分类 | 妹纸1 |
+| 最新 | 分类 | 妹纸 |
 
-![1](./screenshot/girl_two.png) | ![2](./screenshot/girl_three.png) | ![3](./screenshot/my.png) |
+![1](./screenshot/4.png) | ![2](./screenshot/5.png) | ![3](./screenshot/6.png) |
 | :--: | :--: | :--: |
-| 妹纸2 | 妹纸3 | 我的 |
+| 干货历史 | 玩安卓 | 我的 |
 
 ## Android app下载
 ![1](./screenshot/qrcode.png)
 
 ## 版本更新日志
+
+### V1.0.3[2019-04-08]
+
+1、新增玩安卓首页数据
+
+2、每日推荐页面优化
+
+3、插件升级
 
 ### V1.0.2[2019-03-04]
 
@@ -49,9 +57,11 @@
 
 ## 特别感谢
 
-* api提供：[@代码家](https://github.com/daimajia)
+* api提供：[@代码家](https://github.com/daimajia)、[@鸿洋](https://github.com/hongyangAndroid)
 
 * [干货集中营](https://gank.io)
+
+* [玩安卓](https://www.wanandroid.com)
 
 ## 第三方开源库
 
