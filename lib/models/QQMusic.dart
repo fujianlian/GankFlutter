@@ -20,15 +20,15 @@ class QQMusic {
 }
 
 class Data {
-  List<Slider> slider;
+  List<Sliders> slider;
 
   Data({this.slider});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['slider'] != null) {
-      slider = new List<Slider>();
+      slider = new List<Sliders>();
       json['slider'].forEach((v) {
-        slider.add(new Slider.fromJson(v));
+        slider.add(new Sliders.fromJson(v));
       });
     }
   }
@@ -42,14 +42,14 @@ class Data {
   }
 }
 
-class Slider {
+class Sliders {
   String linkUrl;
   String picUrl;
   int id;
 
-  Slider({this.linkUrl, this.picUrl, this.id});
+  Sliders({this.linkUrl, this.picUrl, this.id});
 
-  Slider.fromJson(Map<String, dynamic> json) {
+  Sliders.fromJson(Map<String, dynamic> json) {
     linkUrl = json['linkUrl'];
     picUrl = json['picUrl'];
     id = json['id'];

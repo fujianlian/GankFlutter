@@ -15,6 +15,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="干货集中营"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
