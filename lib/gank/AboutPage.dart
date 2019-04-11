@@ -113,8 +113,6 @@ class AboutPage extends StatelessWidget {
               "https://github.com/renefloor/flutter_cached_network_image"),
           _linkTextPadding("url_launcher",
               "https://github.com/flutter/plugins/tree/master/packages/url_launcher"),
-          _linkTextPadding("banner",
-              "https://github.com/zhangruiyu/BannerView"),
         ]);
   }
 

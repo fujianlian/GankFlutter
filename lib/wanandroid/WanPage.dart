@@ -1,12 +1,11 @@
-import 'package:banner/banner.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/gank/WebPage.dart';
-import 'package:flutter_gank/models/WanBanner.dart';
+import 'package:flutter_gank/models/WanBannerInfo.dart';
 import 'package:flutter_gank/models/WanList.dart';
 import 'package:flutter_gank/net/api_wanandroid.dart';
+import 'package:flutter_gank/widget/wan_banner.dart';
 
 /// 各个分类列表显示
 class WanPage extends StatefulWidget {
@@ -50,7 +49,7 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() async {
-    await WanAndroidApi.getBanner().then((WanBanner list) {
+    await WanAndroidApi.getBanner().then((WanBannerInfo list) {
       if (list.data.isNotEmpty) {
         banners.addAll(list.data);
       }
@@ -90,20 +89,7 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
 
   Widget _renderRow(BuildContext context, int index) {
     if (index == 0) {
-      return new BannerView(
-        data: banners,
-        height: width / 5 * 2,
-        buildShowView: (index, data) {
-          print(data);
-          return new BannerItemFactory(banner: data);
-        },
-        onBannerClickListener: (index, data) {
-          Navigator.push(context, new MaterialPageRoute(builder: (context) {
-            return new WebPage(
-                url: banners[index].url, title: banners[index].title);
-          }));
-        },
-      );
+      return _top();
     } else if (index % 2 == 0) {
       if (index == _data.length * 2)
         return Divider(height: 0, color: Colors.transparent);
@@ -115,6 +101,24 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
       }
     }
     return _getMoreWidget();
+  }
+
+  Widget _top() {
+    return Column(
+        key: Key('__header__'),
+        children: _pageSelector(context));
+  }
+
+  List<Widget> _pageSelector(BuildContext context) {
+    List<Widget> list = [];
+    if (banners.length > 0) {
+      list.add(WanBanner(banners, (slider) {
+        Navigator.push(context, new MaterialPageRoute(builder: (context) {
+          return new WebPage(url: slider.url, title: slider.title);
+        }));
+      }));
+    }
+    return list;
   }
 
   /// 加载更多时显示的组件,给用户提示
@@ -154,18 +158,4 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class BannerItemFactory extends StatelessWidget {
-  BannerItemFactory({Key key, this.banner}) : super(key: key);
-
-  final BannerData banner;
-
-  @override
-  Widget build(BuildContext context) {
-    return new CachedNetworkImage(
-      fit: BoxFit.fill,
-      imageUrl: banner.imagePath,
-    );
-  }
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_gank/models/WanBanner.dart';
+import 'package:flutter_gank/models/WanBannerInfo.dart';
 import 'package:flutter_gank/models/WanList.dart';
 import 'package:flutter_gank/net/http_wanandroid.dart';
 
@@ -14,18 +14,18 @@ class WanAndroidApi {
     return WanList.fromJson(response);
   }
 
-  static Future<WanBanner> getBanner() async {
+  static Future<WanBannerInfo> getBanner() async {
     var response = await HttpWanAndroid.getJson("banner/json", {});
-    return WanBanner.fromJson(response);
+    return WanBannerInfo.fromJson(response);
   }
 
-  static Future<WanBanner> login(Map map) async {
+  static Future<WanBannerInfo> login(Map map) async {
     var response = await HttpWanAndroid.postJson("user/login", map);
-    return WanBanner.fromJson(response);
+    return WanBannerInfo.fromJson(response);
   }
 
-  static Future<WanBanner> register(Map map) async {
+  static Future<WanBannerInfo> register(Map map) async {
     var response = await HttpWanAndroid.postJson("user/register", map);
-    return WanBanner.fromJson(response);
+    return WanBannerInfo.fromJson(response);
   }
 }

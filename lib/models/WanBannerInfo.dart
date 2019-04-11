@@ -1,11 +1,11 @@
-class WanBanner {
+class WanBannerInfo {
   List<BannerData> data;
   int errorCode;
   String errorMsg;
 
-  WanBanner({this.data, this.errorCode, this.errorMsg});
+  WanBannerInfo({this.data, this.errorCode, this.errorMsg});
 
-  WanBanner.fromJson(Map<String, dynamic> json) {
+  WanBannerInfo.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = new List<BannerData>();
       json['data'].forEach((v) {
