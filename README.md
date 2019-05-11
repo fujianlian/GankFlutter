@@ -1,10 +1,12 @@
-[同款React Native干货集中营](https://github.com/fujianlian/GankRN)
-
 # GankFlutter
 
-[干货集中营](https://gank.io)是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片，历史干货，提交干货，github登录。
+[干货集中营](https://gank.io)是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片，历史干货，提交干货。
 
 后续版本会集成 [@鸿洋大神](https://github.com/hongyangAndroid)的[玩Android](https://www.wanandroid.com/)网站数据
+
+[同款React Native干货集中营](https://github.com/fujianlian/GankRN)
+
+[同款小程序干货集中营](https://github.com/fujianlian/GankMini)
 
 ## 应用截图
 
