@@ -6,6 +6,8 @@
 
 [同款React Native干货集中营](https://github.com/fujianlian/GankRN)
 
+[同款Kotlin干货集中营](https://github.com/fujianlian/GankKotlin)
+
 [同款小程序干货集中营](https://github.com/fujianlian/GankMini)
 
 ## 应用截图
