@@ -6,7 +6,7 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _color = Theme.of(context).accentColor;
+    _color = Theme.of(context).primaryColor;
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("关于"),
@@ -62,7 +62,7 @@ class AboutPage extends StatelessWidget {
           children: <Widget>[
             new Text("开发者",
                 style:
-                    new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
+                new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
             _line(),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
@@ -95,7 +95,7 @@ class AboutPage extends StatelessWidget {
         children: <Widget>[
           new Text("开源库",
               style:
-                  new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
+              new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
           _line(),
           _linkTextPadding("dio", "https://github.com/flutterchina/dio"),
           _linkTextPadding("connectivity", "https://github.com/flutter/plugins"),

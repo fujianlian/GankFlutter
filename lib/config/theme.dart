@@ -30,6 +30,8 @@ class AppTheme {
       accentColor: Colors.white,
       // 选中颜色
       primaryColor: Color(mainColor),
+      // 光标颜色
+      cursorColor: Color(mainColor),
       // 背景颜色
       scaffoldBackgroundColor: Color(0xFFF7F7F7),
       // appbar背景

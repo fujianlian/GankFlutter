@@ -25,11 +25,11 @@ class HttpGithub {
         onError: (DioError e) async {
           var connectivityResult = await (new Connectivity().checkConnectivity());
           if (connectivityResult == ConnectivityResult.none) {
-            e.message = "网络连接异常，请检查手机网络设置";
+            e.error = "网络连接异常，请检查手机网络设置";
           } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-            e.message = "用户名或密码错误";
+            e.error = "用户名或密码错误";
           } else {
-            e.message = "用户名或密码错误";
+            e.error = "用户名或密码错误";
           }
           return e; //continue
         }
@@ -85,10 +85,9 @@ class HttpGithub {
     /// 否则则是表单形式的（拼接在url上）
     Options op;
     if (dataIsJson) {
-      op = new Options(contentType: ContentType.parse("application/json"));
+      op = new Options(responseType: ResponseType.json);
     } else {
-      op = new Options(
-          contentType: ContentType.parse("application/x-www-form-urlencoded"));
+      op = new Options(responseType: ResponseType.stream);
     }
 
     op.method = method;
