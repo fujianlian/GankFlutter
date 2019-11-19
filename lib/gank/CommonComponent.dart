@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/colors.dart';
+import 'package:flutter_gank/config/theme.dart';
 import 'package:flutter_gank/gank/DailyPage.dart';
 import 'package:flutter_gank/gank/WebPage.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
@@ -19,8 +20,9 @@ class LoadingWidget extends StatelessWidget {
           child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new CircularProgressIndicator(
-            strokeWidth: 2.0,
+          new Theme(
+            data: Theme.of(context).copyWith(accentColor:Color(AppTheme.mainColor)),
+            child: new CircularProgressIndicator(strokeWidth: 2.0),
           ),
           new Container(
               padding: EdgeInsets.only(top: 10.0), child: new Text("正在加载")),
@@ -84,11 +86,11 @@ class ShowListWidget extends StatelessWidget {
                     margin: EdgeInsets.only(left: 8.0, bottom: 5.0),
                     child: new CachedNetworkImage(
                       placeholder: (context, url) => new Image(
-                            image: AssetImage("images/holder.png"),
-                            fit: BoxFit.fitHeight,
-                            width: 60,
-                            height: 90,
-                          ),
+                        image: AssetImage("images/holder.png"),
+                        fit: BoxFit.fitHeight,
+                        width: 60,
+                        height: 90,
+                      ),
                       fit: BoxFit.fitHeight,
                       imageUrl: info.images[0],
                       width: 60,
@@ -160,11 +162,11 @@ class HomeListWidget extends StatelessWidget {
                     margin: EdgeInsets.only(left: 8.0, bottom: 5),
                     child: new CachedNetworkImage(
                       placeholder: (context, url) => new Image(
-                            image: AssetImage("images/holder.png"),
-                            fit: BoxFit.fitHeight,
-                            width: 90,
-                            height: 90,
-                          ),
+                        image: AssetImage("images/holder.png"),
+                        fit: BoxFit.fitHeight,
+                        width: 90,
+                        height: 90,
+                      ),
                       fit: BoxFit.fitHeight,
                       imageUrl: info.images[0],
                       width: 60,
@@ -254,7 +256,6 @@ class HistoryListWidget extends StatelessWidget {
   }
 }
 
-
 class WanListWidget extends StatelessWidget {
   WanListWidget({Key key, this.info, this.contexts}) : super(key: key);
 
@@ -268,8 +269,8 @@ class WanListWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(contexts == null ? context : contexts,
               new MaterialPageRoute(builder: (context) {
-                return new WebPage(url: info.link, title: info.title);
-              }));
+            return new WebPage(url: info.link, title: info.title);
+          }));
         },
         child: new Padding(
           padding: const EdgeInsets.all(15.0),

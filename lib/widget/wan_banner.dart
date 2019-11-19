@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gank/colors.dart';
+import 'package:flutter_gank/config/theme.dart';
 import 'package:flutter_gank/models/WanBannerInfo.dart';
 
 class WanBanner extends StatefulWidget {
@@ -95,7 +95,9 @@ class _BannerState extends State<WanBanner> {
           margin: EdgeInsets.symmetric(horizontal: 4, vertical: 10.0),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: i == virtualIndex ? mainColor : Color(0x80ffffff))));
+              color: i == virtualIndex
+                  ? Color(AppTheme.mainColor)
+                  : Color(0x80ffffff))));
     }
     return Row(
         mainAxisAlignment: MainAxisAlignment.center, children: indicators);

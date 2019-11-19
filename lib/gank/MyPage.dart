@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/AboutPage.dart';
+import 'package:flutter_gank/store/index.dart';
+import 'package:flutter_gank/store/model/config_state_model.dart';
 import 'package:flutter_gank/wanandroid/LoginPage.dart';
+import 'package:flutter_gank/config/color.dart' show materialColor;
+import 'package:flutter_gank/components/expansion_tile.dart' as Comp;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,6 +23,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   String _avatarUrl = "";
   String _name = "";
   var _isLogin = false;
+  List<Widget> _EdageList = [];
 
   void _getInfo() async {
     if (_prefs == null) _prefs = await SharedPreferences.getInstance();
@@ -27,6 +32,9 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
+    materialColor.forEach((k, v) {
+      _EdageList.add(this.Edage(k, v, context));
+    });
     _getInfo();
     super.initState();
   }
@@ -152,7 +160,49 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
               }));
             },
           ),
+          Container(
+              color: Color(0xFFF7F7F7), padding: EdgeInsets.only(top: 15.0)),
+          Comp.ExpansionTile(
+            headerBackgroundColor: Colors.white,
+            title: Row(
+              children: <Widget>[
+                Text('选择主题', style: new TextStyle(fontSize: 18.0)),
+                Container(
+                  margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
+                  child: Container(
+                    color: Color(
+                        materialColor[Store.value<ConfigModel>(context).theme]),
+                    height: 18,
+                    width: 18,
+                  ),
+                )
+              ],
+            ),
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 5,
+                  children: _EdageList,
+                ),
+              )
+            ],
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget Edage(name, color, context) {
+    return GestureDetector(
+      onTap: () {
+        Store.value<ConfigModel>(context).setTheme(name);
+      },
+      child: Container(
+        color: Color(color),
+        height: 30,
+        width: 30,
       ),
     );
   }

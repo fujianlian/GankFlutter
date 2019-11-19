@@ -10,7 +10,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,6 +27,8 @@ dependencies:
   shared_preferences: ^0.5.1+2
   fluttertoast: ^3.0.3
   webview_flutter: ^0.3.15+1
+  provider: ^3.1.0+1
+  package_info: ^0.4.0+10
 
 dev_dependencies:
   flutter_test:
