@@ -11,7 +11,7 @@ class ConfigInfo {
 class ConfigModel extends ConfigInfo with ChangeNotifier {
   Future getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    appVersion = await packageInfo.version;
+    appVersion = packageInfo.version;
     notifyListeners();
   }
 
