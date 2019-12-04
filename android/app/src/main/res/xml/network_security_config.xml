@@ -3,4 +3,5 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">android.bugly.qq.com</domain>
     </domain-config>
+    <base-config cleartextTrafficPermitted="true" />
 </network-security-config>
