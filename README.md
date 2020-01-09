@@ -21,7 +21,9 @@
 | 干货历史 | 玩安卓 | 我的 |
 
 ## Android app下载
-![1](./screenshot/qrcode.png)
+![1](./screenshot/qrcode1.png)
+
+### 下载密码：123456
 
 ## 版本更新日志
 

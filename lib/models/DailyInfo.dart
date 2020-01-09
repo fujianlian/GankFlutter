@@ -1,10 +1,8 @@
-/// 某个日期网站数据
-class DailyInfo {
-  List<String> category;
-  bool error;
-  Map<String, dynamic> results;
+import 'gank.dart';
 
-  DailyInfo({this.category, this.error, this.results});
+/// 某个日期网站数据
+class DailyInfo extends Gank<Map<String, dynamic>> {
+  List<String> category;
 
   DailyInfo.fromJson(Map<String, dynamic> json) {
     category = json['category'].cast<String>();

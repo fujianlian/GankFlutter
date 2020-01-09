@@ -20,17 +20,17 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   json_annotation: ^3.0.0
-  cached_network_image: ^1.1.3
-  url_launcher: ^5.2.5
-  dio: ^3.0.5
-  connectivity: ^0.4.5+3
-  shared_preferences: ^0.5.4+5
+  cached_network_image: ^2.0.0
+  url_launcher: ^5.4.1
+  dio: ^3.0.8
+  connectivity: ^0.4.6+2
+  shared_preferences: ^0.5.6
   fluttertoast: ^3.1.3
-  webview_flutter: ^0.3.15+1
+  webview_flutter: ^0.3.19+3
   provider: ^3.1.0+1
-  package_info: ^0.4.0+10
+  package_info: ^0.4.0+13
   permission_handler: ^4.0.0
-  path_provider: ^1.4.2
+  path_provider: ^1.5.1
 
   flutter_bugly_plugin:
     git:

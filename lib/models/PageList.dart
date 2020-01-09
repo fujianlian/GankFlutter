@@ -1,12 +1,9 @@
 import 'dart:convert' show json;
 
 import 'package:flutter_gank/models/GankInfo.dart';
+import 'package:flutter_gank/models/gank.dart';
 
-class PageList {
-  bool error;
-  List<GankInfo> results;
-
-  PageList.fromParams({this.error, this.results});
+class PageList extends Gank<List<GankInfo>> {
 
   factory PageList(jsonStr) => jsonStr == null
       ? null

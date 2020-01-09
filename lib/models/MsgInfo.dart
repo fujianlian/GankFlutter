@@ -1,8 +1,7 @@
-class MsgInfo {
-  bool error;
-  String msg;
+import 'gank.dart';
 
-  MsgInfo({this.error, this.msg});
+class MsgInfo extends Gank<String> {
+  String msg;
 
   MsgInfo.fromJson(Map<String, dynamic> json) {
     error = json['error'];

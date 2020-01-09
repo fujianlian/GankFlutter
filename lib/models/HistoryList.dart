@@ -1,11 +1,9 @@
 import 'dart:convert' show json;
 
-/// 干货历史
-class HistoryList {
-  bool error;
-  List<HistoryInfo> results;
+import 'gank.dart';
 
-  HistoryList.fromParams({this.error, this.results});
+/// 干货历史
+class HistoryList extends Gank<List<HistoryInfo>> {
 
   factory HistoryList(jsonStr) => jsonStr == null
       ? null
