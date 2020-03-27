@@ -31,6 +31,7 @@ dependencies:
   package_info: ^0.4.0+13
   permission_handler: ^4.0.0
   path_provider: ^1.5.1
+  pull_to_refresh: ^1.5.8
 
   flutter_bugly_plugin:
     git:
@@ -56,10 +57,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - images/fuli.png
-    - images/holder.png
-    - images/github.png
-    - images/github_logo.png
+    - images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

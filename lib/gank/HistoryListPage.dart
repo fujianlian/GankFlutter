@@ -15,8 +15,8 @@ class HistoryListPage extends StatefulWidget {
 class HistoryListPageState extends State<HistoryListPage>
     with AutomaticKeepAliveClientMixin {
   List<HistoryInfo> _data = List();
-  var _count = 20;
-  var _pageIndex = 1;
+  var _count = 18;
+  var _pageIndex = 2;
 
   /// 是否已加载完所有数据
   var _loadFinish = false;
