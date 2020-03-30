@@ -142,7 +142,7 @@ class _FabuPageState extends State<FabuPage> {
       map["type"] = _activity;
       map["debug"] = false;
       GankApi.release(map).then((MsgInfo info) {
-        if (info.error) {
+        if (info.status!=100) {
           Fluttertoast.showToast(
             msg: info.msg,
             toastLength: Toast.LENGTH_SHORT,

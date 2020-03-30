@@ -6,16 +6,16 @@ class DailyInfo extends Gank<Map<String, dynamic>> {
 
   DailyInfo.fromJson(Map<String, dynamic> json) {
     category = json['category'].cast<String>();
-    error = json['error'];
-    results = json['results'] != null ? json['results'] : null;
+    status = json['status'];
+    results = json['data'] != null ? json['data'] : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['category'] = this.category;
-    data['error'] = this.error;
+    data['status'] = this.status;
     if (this.results != null) {
-      data['results'] = this.results;
+      data['data'] = this.results;
     }
     return data;
   }

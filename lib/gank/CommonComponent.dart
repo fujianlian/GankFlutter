@@ -104,7 +104,7 @@ class ShowListWidget extends StatelessWidget {
             children: <Widget>[
               new Expanded(
                 child: new Text(
-                  info.who + " · " + info.type,
+                  info.author + " · " + info.type,
                   style: new TextStyle(color: c3, fontSize: 12.0),
                 ),
               ),
@@ -130,6 +130,7 @@ class HomeListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Material(
       child: new InkWell(
+  
         onTap: () {
           Navigator.push(contexts == null ? context : contexts,
               new MaterialPageRoute(builder: (context) {
@@ -180,7 +181,7 @@ class HomeListWidget extends StatelessWidget {
             children: <Widget>[
               new Expanded(
                 child: new Text(
-                  info.who + " · " + info.type,
+                  info.author + " · " + info.type,
                   style: new TextStyle(color: c3, fontSize: 12.0),
                 ),
               ),

@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/config/theme.dart';
-
-import '../models/QQMusic.dart';
+import 'package:flutter_gank/models/banner_list.dart';
 
 class GankBanner extends StatefulWidget {
-  final List<Sliders> bannerStories;
+  final List<BannerInfo> bannerStories;
   final OnTapBannerItem onTap;
 
   GankBanner(this.bannerStories, this.onTap, {Key key}) : super(key: key);
@@ -75,15 +74,15 @@ class _BannerState extends State<GankBanner> {
     return items;
   }
 
-  Widget _buildItem(Sliders slider) {
+  Widget _buildItem(BannerInfo banner) {
     return GestureDetector(
       onTap: () {
         // 按下
         if (widget.onTap != null) {
-          widget.onTap(slider);
+          widget.onTap(banner);
         }
       },
-      child: Image.network(slider.picUrl, fit: BoxFit.fill),
+      child: Image.network(banner.image, fit: BoxFit.fill),
     );
   }
 
@@ -120,4 +119,4 @@ class _BannerState extends State<GankBanner> {
   }
 }
 
-typedef void OnTapBannerItem(Sliders slider);
+typedef void OnTapBannerItem(BannerInfo slider);

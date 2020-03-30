@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'ArticleListPage.dart';
-import 'FabuPage.dart';
 
 class SortPage extends StatefulWidget {
   @override
@@ -12,14 +11,21 @@ class SortPageState extends State<SortPage>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _controller;
   List<String> _allPages = <String>[
-    '全部',
     'Android',
     'iOS',
+    'Flutter',
     '前端',
-    '休息视频',
-    '拓展资源',
-    '瞎推荐',
+    '后端',
     'App'
+  ];
+  
+  List<String> _ids = <String>[
+    'Android',
+    'iOS',
+    'Flutter',
+    'frontend',
+    'backend',
+    'app'
   ];
 
   @override
@@ -38,7 +44,7 @@ class SortPageState extends State<SortPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('分类'),
+        /*title: const Text('分类'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -50,8 +56,9 @@ class SortPageState extends State<SortPage>
                     }));
             },
           )
-        ],
-        bottom: TabBar(
+        ], */
+        titleSpacing: 0,
+        title: TabBar(
           controller: _controller,
           isScrollable: true,
           tabs: _allPages
@@ -63,8 +70,7 @@ class SortPageState extends State<SortPage>
       ),
       body: TabBarView(
           controller: _controller,
-          children: _allPages.map<Widget>((String page) {
-            if (page == '全部') return new ArticleListPage(type: "all");
+          children: _ids.map<Widget>((String page) {
             return new ArticleListPage(type: page);
           }).toList()),
     );

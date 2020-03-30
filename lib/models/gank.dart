@@ -1,9 +1,12 @@
 class Gank<T> {
   T results;
-  bool error;
-
+  int page;
+  int page_count;
+  int status;
+  int total_counts;
+  
   @override
   String toString() {
-    return '{"error": $error,"/n results": $results';
+    return '{"status": $status,"/n results": $results';
   }
 }

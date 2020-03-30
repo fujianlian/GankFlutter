@@ -22,7 +22,7 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   int _tabIndex = 0;
   var tabImages;
-  var appBarTitles = ['最新', '分类', '妹纸', '玩安卓', '我的'];
+  var appBarTitles = ['热门', '分类', '妹纸', '玩安卓', '我的'];
 
   /*
    * 根据索引获得对应的normal或是press的icon
@@ -91,6 +91,8 @@ class MainPageState extends State<MainPage> {
               index: _tabIndex,
             ),
             bottomNavigationBar: new BottomNavigationBar(
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
               items: <BottomNavigationBarItem>[
                 new BottomNavigationBarItem(
                     icon: getTabIcon(0), title: getTabTitle(0)),

@@ -8,7 +8,7 @@ class HttpGank {
   static final debug = !bool.fromEnvironment("dart.vm.product");
 
   /// 服务器路径
-  static final baseUrl = 'http://gank.io/api/';
+  static final baseUrl = 'https://gank.io/api/v2/';
 
   /// 基础信息配置
   static final Dio _dio = new Dio(new BaseOptions(

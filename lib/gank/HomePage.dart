@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
-import 'package:flutter_gank/gank/HistoryListPage.dart';
 import 'package:flutter_gank/gank/WebPage.dart';
-import 'package:flutter_gank/models/DailyInfo.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:flutter_gank/models/QQMusic.dart';
+import 'package:flutter_gank/models/HotList.dart';
+import 'package:flutter_gank/models/banner_list.dart';
 import 'package:flutter_gank/net/api_gank.dart';
-import 'package:flutter_gank/net/api_qq_music.dart';
 import 'package:flutter_gank/widget/gank_banner.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,9 +17,9 @@ class HomePage extends StatefulWidget {
 
 class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   bool isLoading;
-  DailyInfo _dailyInfo;
+  List<GankInfo> list = [];
   BuildContext contexts;
-  List<Sliders> qqMusic = [];
+  List<BannerInfo> banners = [];
   double width = 0;
 
   @override
@@ -38,8 +35,8 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('最新'),
-        actions: <Widget>[
+        title: Text('热门'),
+        /* actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.reorder),
             onPressed: () {
@@ -51,25 +48,23 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
               });
             },
           )
-        ],
+        ], */
       ),
-      body: _dailyInfo == null
+      body: list.isEmpty
           ? LoadingWidget()
-          : ListView(children: _showAllList()),
+          : ListView.builder(
+              itemBuilder: _renderRow,
+              itemCount: list.length+1
+            ),
     );
   }
 
-  List<Widget> _showAllList() {
-    var l = List<Widget>();
-    l.add(_top());
-    _dailyInfo.category.remove("福利");
-    _dailyInfo.category.forEach((f) => {
-          l.addAll(_addCategory(GankInfo.fromJson(
-              _dailyInfo.results[f][_dailyInfo.results[f].length - 1])))
-        });
-    return l;
+  Widget _renderRow(BuildContext context, int index) {
+    if(index==0)
+      return _top();
+    return HomeListWidget(info: list[index-1], contexts: contexts);
   }
-
+  
   Widget _top() {
     return Column(
         key: Key('__header__'),
@@ -80,26 +75,18 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
 
   List<Widget> _pageSelector(BuildContext context) {
     List<Widget> list = [];
-    List<Sliders> bannerStories = [];
-    qqMusic.forEach((item) {
+    List<BannerInfo> bannerStories = [];
+    banners.forEach((item) {
       bannerStories.add(item);
     });
-    if (qqMusic.length > 0) {
-      list.add(GankBanner(bannerStories, (slider) {
+    if (banners.length > 0) {
+      list.add(GankBanner(bannerStories, (banner) {
         Navigator.push(context, new MaterialPageRoute(builder: (context) {
-          return new WebPage(url: slider.linkUrl, title: "qq音乐");
+          return new WebPage(url: banner.url, title: banner.title);
         }));
       }));
     }
     return list;
-  }
-
-  List<Widget> _addCategory(GankInfo info) {
-    var l = List<Widget>();
-    l.add(HomeListWidget(info: info, contexts: contexts));
-    if (info.type != _dailyInfo.category[_dailyInfo.category.length - 1])
-      l.add(Divider(height: 0.5, color: c9));
-    return l;
   }
 
   void showPhoto(BuildContext context, GankInfo photo) {
@@ -122,14 +109,28 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() async {
-    await GankApi.getToday().then((DailyInfo info) {
-      _dailyInfo = info;
+    await GankApi.getHot().then((HotList info) {
+      list = info.results;
+      setState(() {
+        list = info.results;
+        isLoading = false;
+      });
     }).catchError((onError) {
       setState(() {
         isLoading = false;
       });
     });
-    QQMusicApi.getQQBanner().then((QQMusic info) {
+    await GankApi.getBanners().then((BannerList info) {
+      banners = info.results;
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    /* QQMusicApi.getQQBanner().then((QQMusic info) {
       setState(() {
         isLoading = false;
         qqMusic = info.data.slider;
@@ -138,7 +139,7 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
       setState(() {
         isLoading = false;
       });
-    });
+    }); */
   }
 
   @override

@@ -44,8 +44,9 @@ class ArticleListState extends State<ArticleListPage>
   }
 
   void _pullNet() {
-    GankApi.getListData(widget.type, 15, _currentIndex).then((PageList list) {
+    GankApi.getListData(widget.type, 10, _currentIndex).then((PageList list) {
       isLoading = false;
+      print(list);
       setState(() {
         if (list.results.isEmpty) {
           _loadFinish = true;

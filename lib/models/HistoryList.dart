@@ -12,7 +12,7 @@ class HistoryList extends Gank<List<HistoryInfo>> {
           : new HistoryList.fromJson(jsonStr);
 
   HistoryList.fromJson(jsonRes) {
-    error = jsonRes['error'];
+    status = jsonRes['status'];
     results = jsonRes['results'] == null ? null : [];
 
     for (var resultsItem in results == null ? [] : jsonRes['results']) {
@@ -23,7 +23,7 @@ class HistoryList extends Gank<List<HistoryInfo>> {
 
   @override
   String toString() {
-    return '{"error": $error,"results": $results}';
+    return '{"status": $status,"results": $results}';
   }
 }
 

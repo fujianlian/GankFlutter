@@ -18,7 +18,7 @@ class FuliPage extends StatefulWidget {
 
 class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   List<GankInfo> _data = List();
-  var _currentIndex = 2;
+  var _currentIndex = 1;
   var _crossAxisCount = 2;
 
   /// 是否正加载万所有数据
@@ -38,7 +38,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
 
   void _onRefresh() async {
     _loadFinish = false;
-    _currentIndex = 2;
+    _currentIndex = 1;
     _refreshController.resetNoData();
     _pullNet();
   }
@@ -53,26 +53,24 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() {
-    GankApi.getListData("福利", 18, _currentIndex).then((PageList list) {
-      if (_currentIndex == 2) {
+    GankApi.getGirlList(10, _currentIndex).then((PageList list) {
+      if (_currentIndex == 1) {
         _data.clear();
         _refreshController.refreshCompleted();
-      } else if(_currentIndex == 4){
+      } else {
+        _refreshController.loadComplete();
+      }
+      isLoading = false;
+      if (list.results.length<10) {
         setState(() {
           _loadFinish = true;
         });
         _refreshController.loadNoData();
       } else {
-        _refreshController.loadComplete();
-      }
-      isLoading = false;
-      setState(() {
-        if (list.results.isEmpty) {
-          _loadFinish = true;
-        } else {
+        setState(() {
           _data.addAll(list.results);
-        }
-      });
+        });
+      }
     });
   }
 
