@@ -63,6 +63,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
       isLoading = false;
       if (list.results.length<10) {
         setState(() {
+          _data.addAll(list.results);
           _loadFinish = true;
         });
         _refreshController.loadNoData();

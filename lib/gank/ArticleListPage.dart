@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/models/PageList.dart';
 import 'package:flutter_gank/net/api_gank.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'CommonComponent.dart';
 
@@ -28,32 +30,51 @@ class ArticleListState extends State<ArticleListPage>
   /// 是否正在加载数据
   bool isLoading = false;
 
-  /// listView的控制器
-  ScrollController _scrollController = ScrollController();
+  RefreshController _refreshController =
+    RefreshController(initialRefresh: false);
 
   @override
   void initState() {
     super.initState();
     _pullNet();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        if (!_loadFinish) _getMore();
-      }
-    });
+  }
+
+  void _onRefresh() async {
+    _loadFinish = false;
+    _currentIndex = 1;
+    _refreshController.resetNoData();
+    _pullNet();
+  }
+
+  void _onLoading() async {
+    if (_loadFinish) {
+      _refreshController.loadNoData();
+    } else {
+      _currentIndex += 1;
+      _pullNet();
+    }
   }
 
   void _pullNet() {
     GankApi.getListData(widget.type, 10, _currentIndex).then((PageList list) {
+      if (_currentIndex == 1) {
+        _data.clear();
+        _refreshController.refreshCompleted();
+      } else {
+        _refreshController.loadComplete();
+      }
       isLoading = false;
-      print(list);
-      setState(() {
-        if (list.results.isEmpty) {
-          _loadFinish = true;
-        } else {
+      if (list.results.length<10) {
+        setState(() {
           _data.addAll(list.results);
-        }
-      });
+          _loadFinish = true;
+        });
+        _refreshController.loadNoData();
+      } else {
+        setState(() {
+          _data.addAll(list.results);
+        });
+      }
     });
   }
 
@@ -62,10 +83,39 @@ class ArticleListState extends State<ArticleListPage>
     return Scaffold(
       body: _data.isEmpty
           ? LoadingWidget()
-          : ListView.builder(
+          : _buildListView(),
+    );
+  }
+
+  Widget _buildListView() {
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: true,
+      header: WaterDropHeader(),
+      footer: CustomFooter(
+        builder: (BuildContext context, LoadStatus mode) {
+          Widget body;
+          if (mode == LoadStatus.idle) {
+            body = Text("上拉刷新");
+          } else if (mode == LoadStatus.loading) {
+            body = CupertinoActivityIndicator();
+          } else if (mode == LoadStatus.failed) {
+            body = Text("加载失败！点击重试！");
+          } else {
+            body = Text("没有更多数据了。。。");
+          }
+          return Container(
+            height: 48.0,
+            child: Center(child: body),
+          );
+        },
+      ),
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child:  ListView.builder(
               itemBuilder: _renderRow,
-              itemCount: _loadFinish ? _data.length : _data.length + 1,
-              controller: _scrollController,
+              itemCount: _data.length
             ),
     );
   }
@@ -93,23 +143,6 @@ class ArticleListState extends State<ArticleListPage>
         ),
       ),
     );
-  }
-
-  /// 上拉加载更多
-  _getMore() {
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      _currentIndex++;
-      _pullNet();
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
   }
 
   @override

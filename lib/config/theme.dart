@@ -27,7 +27,7 @@ class AppTheme {
         color: Color(thirdColor),
         opacity: 0.85,
       ),
-      accentColor: Colors.white,
+      accentColor: Color(mainColor),
       // 选中颜色
       primaryColor: Color(mainColor),
       // 光标颜色

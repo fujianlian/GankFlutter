@@ -23,7 +23,7 @@
 ## Android app下载
 ![1](./screenshot/qrcode1.png)
 
-### 下载密码：123456
+
 
 ## 版本更新日志
 
