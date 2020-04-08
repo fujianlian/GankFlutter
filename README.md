@@ -21,8 +21,10 @@
 | 干货历史 | 玩安卓 | 我的 |
 
 ## Android app下载
-![1](./screenshot/qrcode1.png)
 
+![1](./screenshot/fir.png) |![2](./screenshot/pyger.png) |
+| :--: | :--: |
+| fir | 蒲公英(密码：123456) |
 
 
 ## 版本更新日志
