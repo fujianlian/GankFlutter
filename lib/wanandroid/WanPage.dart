@@ -49,11 +49,13 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() async {
-    await WanAndroidApi.getBanner().then((WanBannerInfo list) {
-      if (list.data.isNotEmpty) {
-        banners.addAll(list.data);
-      }
-    });
+    if (banners.isEmpty) {
+      await WanAndroidApi.getBanner().then((WanBannerInfo list) {
+        if (list.data.isNotEmpty) {
+          banners.addAll(list.data);
+        }
+      });
+    }
     WanAndroidApi.getHomeList(_currentIndex, "").then((WanList list) {
       isLoading = false;
       setState(() {
@@ -104,9 +106,7 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _top() {
-    return Column(
-        key: Key('__header__'),
-        children: _pageSelector(context));
+    return Column(key: Key('__header__'), children: _pageSelector(context));
   }
 
   List<Widget> _pageSelector(BuildContext context) {

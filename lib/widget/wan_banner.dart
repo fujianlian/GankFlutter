@@ -82,7 +82,7 @@ class _BannerState extends State<WanBanner> {
           widget.onTap(banner);
         }
       },
-      child: Image.network(banner.imagePath, fit: BoxFit.fill),
+      child: Image.network(banner.imagePath, fit: BoxFit.cover),
     );
   }
 

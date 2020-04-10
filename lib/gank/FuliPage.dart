@@ -72,6 +72,12 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
           _data.addAll(list.results);
         });
       }
+    }).catchError((onError){
+      if (_currentIndex == 1) {
+        _refreshController.refreshCompleted();
+      } else {
+        _refreshController.loadComplete();
+      }
     });
   }
 
@@ -145,24 +151,6 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
     return _PhotoItem(info: _data[index]);
   }
 
-  /// 加载更多时显示的组件,给用户提示
-  Widget _getMoreWidget() {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            CircularProgressIndicator(
-              strokeWidth: 1.0,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   bool get wantKeepAlive => true;
 }
@@ -197,7 +185,7 @@ class _PhotoItem extends StatelessWidget {
         MaterialPageRoute<void>(builder: (BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(info.desc),
+          title: Text(info.desc, maxLines: 2),
           centerTitle: true,
         ),
         body: Center(

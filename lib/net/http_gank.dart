@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 
@@ -20,6 +22,12 @@ class HttpGank {
 
   /// 拦截器设置
   static void setInterceptor() {
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate  = (client) {
+      client.badCertificateCallback=(X509Certificate cert, String host, int port){
+        return true;
+      };
+    };
+
     // 当请求失败时做一些预处理
     _dio.interceptors.add(InterceptorsWrapper(onError: (DioError e) async {
       // 当请求失败时做一些预处理
@@ -65,8 +73,6 @@ class HttpGank {
   static Future<Response<Map<String, dynamic>>> _httpJson(
       String method, String uri,
       {Map<String, dynamic> data, bool dataIsJson = true}) async {
-    if (!uri.contains("today")) setInterceptor();
-
     /// 如果为 get方法，则进行参数拼接
     if (method == "get") {
       dataIsJson = false;

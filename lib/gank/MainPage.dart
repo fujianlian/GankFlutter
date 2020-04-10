@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly_plugin/flutter_bugly_plugin.dart';
 import 'package:flutter_gank/config/theme.dart';
+import 'package:flutter_gank/net/http_gank.dart';
 import 'package:flutter_gank/store/index.dart';
 import 'package:flutter_gank/store/model/config_state_model.dart';
 import 'package:flutter_gank/wanandroid/WanPage.dart';
@@ -60,6 +61,7 @@ class MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    HttpGank.setInterceptor();
     if(Platform.isAndroid){
       FlutterBuglyPlugin.setUp('8d0a15f726');
     }else if(Platform.isIOS){

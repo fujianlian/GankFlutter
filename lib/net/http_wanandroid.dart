@@ -64,7 +64,7 @@ class HttpWanAndroid {
   static Future<Response<Map<String, dynamic>>> _httpJson(
       String method, String uri,
       {Map<String, dynamic> data, bool dataIsJson = true}) async {
-    if (!uri.contains("today")) setInterceptor();
+    setInterceptor();
 
     /// 如果为 get方法，则进行参数拼接
     if (method == "get") {
