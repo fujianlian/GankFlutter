@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/gank/WebPage.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:flutter_gank/models/HotList.dart';
 import 'package:flutter_gank/models/banner_list.dart';
-import 'package:flutter_gank/net/api_gank.dart';
+import 'package:flutter_gank/net/gank/api.dart';
+import 'package:flutter_gank/net/gank/apiService.dart';
 import 'package:flutter_gank/widget/gank_banner.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,18 +53,15 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
       body: list.isEmpty
           ? LoadingWidget()
           : ListView.builder(
-              itemBuilder: _renderRow,
-              itemCount: list.length+1
-            ),
+              itemBuilder: _renderRow, itemCount: list.length + 1),
     );
   }
 
   Widget _renderRow(BuildContext context, int index) {
-    if(index==0)
-      return _top();
-    return HomeListWidget(info: list[index-1], contexts: contexts);
+    if (index == 0) return _top();
+    return HomeListWidget(info: list[index - 1], contexts: contexts);
   }
-  
+
   Widget _top() {
     return Column(
         key: Key('__header__'),
@@ -109,37 +106,22 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() async {
-    await GankApi.getHot().then((HotList info) {
-      list = info.results;
-      setState(() {
-        list = info.results;
-        isLoading = false;
-      });
-    }).catchError((onError) {
+    await request({}, APIService.getHot).then((res) {
+      for (int i = 0; i < res.data.length; i++) {
+        list.add(GankInfo.fromJson(res.data[i]));
+      }
+      isLoading = false;
+    });
+    await request({}, APIService.getBanners).then((res) {
+      for (int i = 0; i < res.data.length; i++) {
+        banners.add(BannerInfo.fromJson(res.data[i]));
+      }
+
       setState(() {
         isLoading = false;
       });
     });
-    await GankApi.getBanners().then((BannerList info) {
-      banners = info.results;
-      setState(() {
-        isLoading = false;
-      });
-    }).catchError((onError) {
-      setState(() {
-        isLoading = false;
-      });
-    });
-    /* QQMusicApi.getQQBanner().then((QQMusic info) {
-      setState(() {
-        isLoading = false;
-        qqMusic = info.data.slider;
-      });
-    }).catchError((onError) {
-      setState(() {
-        isLoading = false;
-      });
-    }); */
+    setState(() {});
   }
 
   @override

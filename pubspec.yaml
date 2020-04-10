@@ -22,7 +22,7 @@ dependencies:
   json_annotation: ^3.0.0
   cached_network_image: ^2.0.0
   url_launcher: ^5.4.1
-  dio: ^3.0.7
+  dio: ^3.0.9
   connectivity: ^0.4.6+2
   shared_preferences: ^0.5.6
   fluttertoast: ^3.1.3

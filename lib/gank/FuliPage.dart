@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:flutter_gank/models/PageList.dart';
-import 'package:flutter_gank/net/api_gank.dart';
+import 'package:flutter_gank/net/gank/api.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FuliPage extends StatefulWidget {
@@ -28,7 +27,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   bool isLoading = false;
 
   RefreshController _refreshController =
-    RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -53,26 +52,23 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
   }
 
   void _pullNet() {
-    GankApi.getGirlList(10, _currentIndex).then((PageList list) {
+    request({}, APIService.getGirlList(_currentIndex, 10)).then((res) {
       if (_currentIndex == 1) {
         _data.clear();
         _refreshController.refreshCompleted();
       } else {
         _refreshController.loadComplete();
       }
-      isLoading = false;
-      if (list.results.length<10) {
-        setState(() {
-          _data.addAll(list.results);
-          _loadFinish = true;
-        });
-        _refreshController.loadNoData();
-      } else {
-        setState(() {
-          _data.addAll(list.results);
-        });
+      for (int i = 0; i < res.data.length; i++) {
+        _data.add(GankInfo.fromJson(res.data[i]));
       }
-    }).catchError((onError){
+      isLoading = false;
+      if (res.data.length < 10) {
+        _loadFinish = true;
+        _refreshController.loadNoData();
+      }
+      setState(() {});
+    }).catchError((err) {
       if (_currentIndex == 1) {
         _refreshController.refreshCompleted();
       } else {
@@ -101,9 +97,7 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
           )
         ],
       ),
-      body: _data.isEmpty
-          ? LoadingWidget()
-          : _buildListView(),
+      body: _data.isEmpty ? LoadingWidget() : _buildListView(),
     );
   }
 
@@ -134,16 +128,16 @@ class FuliPageState extends State<FuliPage> with AutomaticKeepAliveClientMixin {
       onRefresh: _onRefresh,
       onLoading: _onLoading,
       child: GridView.builder(
-              padding: EdgeInsets.all(5.0),
-              itemBuilder: _renderRow,
-              itemCount: _data.length,
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: _crossAxisCount,
-                childAspectRatio: _crossAxisCount == 1 ? 1 : 0.8,
-                mainAxisSpacing: 5.0,
-                crossAxisSpacing: 5.0,
-              ),
-            ),
+        padding: EdgeInsets.all(5.0),
+        itemBuilder: _renderRow,
+        itemCount: _data.length,
+        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: _crossAxisCount,
+          childAspectRatio: _crossAxisCount == 1 ? 1 : 0.8,
+          mainAxisSpacing: 5.0,
+          crossAxisSpacing: 5.0,
+        ),
+      ),
     );
   }
 
