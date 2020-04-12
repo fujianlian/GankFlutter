@@ -36,19 +36,6 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
       appBar: AppBar(
         centerTitle: true,
         title: Text('热门'),
-        /* actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.reorder),
-            onPressed: () {
-              setState(() {
-                Navigator.push(contexts == null ? context : contexts,
-                    new MaterialPageRoute(builder: (context) {
-                  return new HistoryListPage();
-                }));
-              });
-            },
-          )
-        ], */
       ),
       body: list.isEmpty
           ? LoadingWidget()

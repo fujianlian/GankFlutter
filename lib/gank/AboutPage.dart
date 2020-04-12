@@ -30,9 +30,9 @@ class AboutPage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10.0),
         ),
         new Text(
-          "干货集中营是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含最新数据展示，"
-              "分类列表读取(Android，iOS，前端，休息视频，拓展资源，瞎推荐，App)，妹纸瀑布流图片"
-              "，历史干货，提交干货以及玩安卓首页数据。",
+          "干货集中营是一款根据 Gank.io 官方提供的api实现的Gank客户端，包含热门数据展示，"
+              "分类列表读取(Android，iOS，Flutter，前端，后端，App)，妹纸瀑布流图片"
+              "以及玩安卓首页数据。",
           style: new TextStyle(height: 1.2),
         ),
         Padding(
@@ -98,6 +98,7 @@ class AboutPage extends StatelessWidget {
               new TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0)),
           _line(),
           _linkTextPadding("dio", "https://github.com/flutterchina/dio"),
+          _linkTextPadding("pull_to_refresh", "https://pub.flutter-io.cn/packages/pull_to_refresh"),
           _linkTextPadding("connectivity", "https://github.com/flutter/plugins"),
           _linkTextPadding("fluttertoast", "https://github.com/PonnamKarthik/FlutterToast"),
           _linkTextPadding("shared_preferences", "https://github.com/flutter/plugins"),

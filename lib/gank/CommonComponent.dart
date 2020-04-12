@@ -4,10 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/config/theme.dart';
-import 'package:flutter_gank/gank/DailyPage.dart';
 import 'package:flutter_gank/gank/WebPage.dart';
 import 'package:flutter_gank/models/GankInfo.dart';
-import 'package:flutter_gank/models/HistoryList.dart';
 import 'package:flutter_gank/models/WanList.dart';
 
 class LoadingWidget extends StatelessWidget {
@@ -193,66 +191,6 @@ class HomeListWidget extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-}
-
-class HistoryListWidget extends StatelessWidget {
-  HistoryListWidget({Key key, this.info}) : super(key: key);
-
-  final HistoryInfo info;
-
-  @override
-  Widget build(BuildContext context) {
-    RegExp exp = new RegExp(r'src=\"(.+?)\"');
-    var imageUrl = exp.firstMatch(info.content).group(1);
-    return new Container(
-      child: new GestureDetector(
-          onTap: () {
-            //导航到新路由
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new DailyPage(title: info.publishedAt.substring(0, 10));
-            }));
-          },
-          child: new Container(
-            color: Color(0xFFDFDFDF),
-            child: new Stack(
-              children: <Widget>[
-                new Container(
-                  child: new CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: imageUrl,
-                    width: window.physicalSize.width - 20,
-                    height: 170,
-                  ),
-                ),
-                new Container(
-                  margin: EdgeInsets.only(left: 15.0, top: 64, right: 15.0),
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(
-                        info.publishedAt.substring(0, 10),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                      ),
-                      new Text(
-                        info.title,
-                        maxLines: 3,
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            margin: const EdgeInsets.all(4.0),
-          )),
     );
   }
 }
