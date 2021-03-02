@@ -4,7 +4,6 @@ import 'package:flutter_gank/store/index.dart';
 import 'package:flutter_gank/store/model/config_state_model.dart';
 import 'package:flutter_gank/wanandroid/LoginPage.dart';
 import 'package:flutter_gank/config/color.dart' show materialColor;
-import 'package:flutter_gank/components/expansion_tile.dart' as Comp;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -160,7 +159,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
               }));
             },
           ),
-          Container(
+          /*Container(
               color: Color(0xFFF7F7F7), padding: EdgeInsets.only(top: 15.0)),
           Comp.ExpansionTile(
             headerBackgroundColor: Colors.white,
@@ -188,7 +187,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
                 ),
               )
             ],
-          ),
+          ),*/
         ],
       ),
     );

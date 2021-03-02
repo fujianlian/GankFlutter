@@ -10,6 +10,15 @@
 
 [同款小程序干货集中营](https://github.com/fujianlian/GankMini)
 
+## Flutter版本
+
+~~~
+Flutter 1.22.6 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 9b2d32b605 (5 weeks ago) • 2021-01-22 14:36:39 -0800
+Engine • revision 2f0af37152
+Tools • Dart 2.10.5
+~~~
+
 ## 应用截图
 
 ![1](https://user-gold-cdn.xitu.io/2020/4/11/171685cecbf45589?w=1242&h=2688&f=png&s=119429) | ![2](https://user-gold-cdn.xitu.io/2020/4/11/17168577620ec2c1?w=1242&h=2688&f=png&s=660437) | ![3](https://user-gold-cdn.xitu.io/2020/4/11/171685be3a4a58ca?w=1242&h=2688&f=png&s=1037152) |
@@ -58,14 +67,6 @@
 1、项目架构搭建
 
 2、实现了最新数据展示，分类列表读取，妹纸图片展示功能
-
-## 贡献
-
-* 如果你在使用过程中遇到问题，欢迎给我提Issue
-
-* 如果你有好的想法，欢迎pull request
-
-* 觉得不错的话，顺手[点个Star](https://github.com/fujianlian/GankFlutter)，笔者需要您的支持
 
 ## 特别感谢
 
