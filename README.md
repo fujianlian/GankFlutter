@@ -21,11 +21,11 @@ Tools • Dart 2.10.5
 
 ## 应用截图
 
-![1](https://user-gold-cdn.xitu.io/2020/4/11/171685cecbf45589?w=1242&h=2688&f=png&s=119429) | ![2](https://user-gold-cdn.xitu.io/2020/4/11/17168577620ec2c1?w=1242&h=2688&f=png&s=660437) | ![3](https://user-gold-cdn.xitu.io/2020/4/11/171685be3a4a58ca?w=1242&h=2688&f=png&s=1037152) |
+![1](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/340cf636a2684d0a8ef5a79310b2b9b2~tplv-k3u1fbpfcp-watermark.image) | ![2](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4482edb3ea0343d480820ebb59a200f2~tplv-k3u1fbpfcp-watermark.image) | ![3](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/33511e8055b5472381c7e219ae1f35d4~tplv-k3u1fbpfcp-watermark.image) |
 | :--: | :--: | :--: |
 | 热门 | 分类 | 妹纸 |
 
-![1](https://user-gold-cdn.xitu.io/2020/4/11/17168586eb9d5b8f?w=1242&h=2688&f=png&s=792083) | ![2](https://user-gold-cdn.xitu.io/2020/4/11/171685a6b2e419ff?w=1242&h=2688&f=png&s=151669) | ![3](https://user-gold-cdn.xitu.io/2020/4/11/171685aeb279843b?w=1242&h=2688&f=png&s=26904) |
+![1](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a45195c2ede949aeb9813c263630fd73~tplv-k3u1fbpfcp-watermark.image) | ![2](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/dd9ec3c991074eefaaf0536e780b6502~tplv-k3u1fbpfcp-watermark.image) | ![3](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc5facf93c214647be643ebf8d29035d~tplv-k3u1fbpfcp-watermark.image) |
 | :--: | :--: | :--: |
 | 妹纸 | 玩安卓 | 我的 |
 
