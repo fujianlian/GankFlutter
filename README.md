@@ -31,49 +31,16 @@ Tools • Dart 2.10.5
 
 ## Android app下载
 
-![1](https://user-gold-cdn.xitu.io/2020/4/12/1716e3b9ff23e245?w=300&h=300&f=png&s=4127) |![2](https://user-gold-cdn.xitu.io/2020/4/12/1716e3bb34e6f844?w=300&h=300&f=png&s=6171) |
-| :--: | :--: |
-| fir | 蒲公英(密码：123456) |
+![1](./images/qr.png)
 
+[链接下载](https://raw.githubusercontent.com/fujianlian/apk/master/gankflutter.apk) 
 
-## 版本更新日志
-
-### V1.0.4 [2020-04-11]
-
-1、接口升级
-
-### V1.0.3 [2019-04-08]
-
-1、新增玩安卓首页数据
-
-2、每日推荐页面优化
-
-3、插件升级
-
-### V1.0.2 [2019-03-04]
-
-1、新增提交干货
-
-2、新增GitHub登录
-
-### V1.0.1 [2019-01-26]
-
-1、新增历史干货
-
-2、图片查看动画实现
-
-### V1.0.0 [2019-01-06]
-
-1、项目架构搭建
-
-2、实现了最新数据展示，分类列表读取，妹纸图片展示功能
+[版本更新日志](./VERSION.md) 
 
 ## 特别感谢
 
 * api提供：[@代码家](https://github.com/daimajia)、[@鸿洋](https://github.com/hongyangAndroid)
-
 * [干货集中营](https://gank.io)
-
 * [玩安卓](https://www.wanandroid.com)
 
 ## 第三方开源库

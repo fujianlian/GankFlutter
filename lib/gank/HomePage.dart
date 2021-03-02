@@ -6,7 +6,7 @@ import 'package:flutter_gank/models/GankInfo.dart';
 import 'package:flutter_gank/models/banner_list.dart';
 import 'package:flutter_gank/net/gank/api.dart';
 import 'package:flutter_gank/net/gank/apiService.dart';
-import 'package:flutter_gank/widget/gank_banner.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -50,27 +50,30 @@ class HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _top() {
-    return Column(
-        key: Key('__header__'),
-        //physics: AlwaysScrollableScrollPhysics(),
-        //padding: EdgeInsets.only(),
-        children: _pageSelector(context));
-  }
-
-  List<Widget> _pageSelector(BuildContext context) {
-    List<Widget> list = [];
-    List<BannerInfo> bannerStories = [];
-    banners.forEach((item) {
-      bannerStories.add(item);
-    });
-    if (banners.length > 0) {
-      list.add(GankBanner(bannerStories, (banner) {
-        Navigator.push(context, new MaterialPageRoute(builder: (context) {
-          return new WebPage(url: banner.url, title: banner.title);
-        }));
-      }));
-    }
-    return list;
+    return banners.isEmpty
+        ? Container()
+        : Container(
+            height: 160,
+            child: Swiper(
+              onTap: (index) {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) {
+                  return new WebPage(
+                    url: banners[index].url,
+                    title: banners[index].title,
+                  );
+                }));
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return CachedNetworkImage(
+                  imageUrl: banners[index].image,
+                  fit: BoxFit.cover,
+                );
+              },
+              itemCount: banners.length,
+              pagination: new SwiperPagination(),
+            ),
+          );
   }
 
   void showPhoto(BuildContext context, GankInfo photo) {

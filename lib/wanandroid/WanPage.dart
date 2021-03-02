@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/colors.dart';
 import 'package:flutter_gank/gank/CommonComponent.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_gank/gank/WebPage.dart';
 import 'package:flutter_gank/models/WanBannerInfo.dart';
 import 'package:flutter_gank/models/WanList.dart';
 import 'package:flutter_gank/net/api_wanandroid.dart';
-import 'package:flutter_gank/widget/wan_banner.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 /// 各个分类列表显示
 class WanPage extends StatefulWidget {
@@ -106,19 +107,30 @@ class WanPageState extends State<WanPage> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _top() {
-    return Column(key: Key('__header__'), children: _pageSelector(context));
-  }
-
-  List<Widget> _pageSelector(BuildContext context) {
-    List<Widget> list = [];
-    if (banners.length > 0) {
-      list.add(WanBanner(banners, (slider) {
-        Navigator.push(context, new MaterialPageRoute(builder: (context) {
-          return new WebPage(url: slider.url, title: slider.title);
-        }));
-      }));
-    }
-    return list;
+    return banners.isEmpty
+        ? Container()
+        : Container(
+      height: 160,
+      child: Swiper(
+        onTap: (index) {
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) {
+                return new WebPage(
+                  url: banners[index].url,
+                  title: banners[index].title,
+                );
+              }));
+        },
+        itemBuilder: (BuildContext context, int index) {
+          return CachedNetworkImage(
+            imageUrl: banners[index].imagePath,
+            fit: BoxFit.cover,
+          );
+        },
+        itemCount: banners.length,
+        pagination: new SwiperPagination(),
+      ),
+    );
   }
 
   /// 加载更多时显示的组件,给用户提示
